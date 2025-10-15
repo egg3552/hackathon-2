@@ -1,274 +1,546 @@
-{% extends 'base.html' %}{% extends 'base.html' %}
+{% extends 'base.html' %}{% extends 'base.html' %}{% extends 'base.html' %}
 
 
 
-{% block title %}Home - Meeting Notes App{% endblock %}{% block title %}Home - Meeting Notes App{% endblock %}
+{% block title %}Home - Meeting Notes App{% endblock %}
 
 
 
-{% block content %}{% block content %}
+{% block content %}{% block title %}Home - Meeting Notes App{% endblock %}{% block title %}Home - Meeting Notes App{% endblock %}
 
-<style><style>
+<style>
 
-    .hero-section {    .hero-section {
+    .hero-section {
 
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
-        min-height: 90vh;        min-height: 90vh;
+        min-height: 90vh;{% block content %}{% block content %}
 
-        display: flex;        display: flex;
+        display: flex;
 
-        align-items: center;        align-items: center;
+        align-items: center;<style><style>
 
-        color: white;        color: white;
+        color: white;
 
-        position: relative;        position: relative;
+        position: relative;    .hero-section {    .hero-section {
 
-        overflow: hidden;        overflow: hidden;
+        overflow: hidden;
 
-    }    }
+    }        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
-        
+    
 
-    .hero-section::before {    .hero-section::before {
+    .hero-section::before {        min-height: 90vh;        min-height: 90vh;
 
-        content: '';        content: '';
+        content: '';
 
-        position: absolute;        position: absolute;
+        position: absolute;        display: flex;        display: flex;
 
-        top: 0;        top: 0;
+        top: 0;
 
-        left: 0;        left: 0;
+        left: 0;        align-items: center;        align-items: center;
 
-        right: 0;        right: 0;
+        right: 0;
 
-        bottom: 0;        bottom: 0;
+        bottom: 0;        color: white;        color: white;
 
-        background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);        background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
 
-        animation: gradient 15s ease infinite;        animation: gradient 15s ease infinite;
+        animation: gradient 15s ease infinite;        position: relative;        position: relative;
 
-    }    }
+    }
 
-        
+            overflow: hidden;        overflow: hidden;
 
-    @keyframes gradient {    @keyframes gradient {
+    @keyframes gradient {
 
-        0% { opacity: 0.5; }        0% { opacity: 0.5; }
+        0% { opacity: 0.5; }    }    }
 
-        50% { opacity: 1; }        50% { opacity: 1; }
+        50% { opacity: 1; }
 
-        100% { opacity: 0.5; }        100% { opacity: 0.5; }
+        100% { opacity: 0.5; }        
 
-    }    }
+    }
 
-        
+        .hero-section::before {    .hero-section::before {
 
-    .hero-content {    .hero-content {
+    .hero-content {
 
-        position: relative;        position: relative;
+        position: relative;        content: '';        content: '';
 
-        z-index: 1;        z-index: 1;
+        z-index: 1;
 
-    }    }
+    }        position: absolute;        position: absolute;
 
-        
+    
 
-    .feature-card {    .feature-card {
+    .feature-card {        top: 0;        top: 0;
 
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 
-        border: none;        border: none;
+        border: none;        left: 0;        left: 0;
 
-        border-radius: 15px;        border-radius: 15px;
+        border-radius: 15px;
 
-        transition: transform 0.3s ease, box-shadow 0.3s ease;        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;        right: 0;        right: 0;
 
-        height: 100%;        height: 100%;
+        height: 100%;
 
-        padding: 2rem;    }
+        padding: 2rem;        bottom: 0;        bottom: 0;
 
-    }    
+    }
 
-        .feature-card:hover {
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);        background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
 
-    .feature-card:hover {        transform: translateY(-10px);
+    .feature-card:hover {
 
-        transform: translateY(-10px);        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        transform: translateY(-10px);        animation: gradient 15s ease infinite;        animation: gradient 15s ease infinite;
 
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);    }
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
 
-    }    
+    }    }    }
 
-        .feature-icon {
+    
 
-    .feature-icon {        font-size: 3rem;
+    .feature-icon {        
 
-        font-size: 3rem;        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-size: 3rem;
 
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        -webkit-background-clip: text;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);    @keyframes gradient {    @keyframes gradient {
 
-        -webkit-background-clip: text;        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
 
-        -webkit-text-fill-color: transparent;        background-clip: text;
-
-        background-clip: text;    }
-
-    }    
-
-        .btn-gradient {
-
-    .btn-gradient {        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        border: none;
-
-        border: none;        padding: 15px 40px;
-
-        padding: 15px 40px;        font-size: 1.1rem;
-
-        font-size: 1.1rem;        border-radius: 50px;
-
-        border-radius: 50px;        transition: all 0.3s ease;
-
-        transition: all 0.3s ease;        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);    }
-
-        color: white;    
-
-    }    .btn-gradient:hover {
-
-            transform: translateY(-3px);
-
-    .btn-gradient:hover {        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
-
-        transform: translateY(-3px);    }
-
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);    
-
-        color: white;    .btn-outline-gradient {
-
-    }        border: 2px solid white;
-
-            background: transparent;
-
-    .btn-outline-gradient {        color: white;
-
-        border: 2px solid white;        padding: 15px 40px;
-
-        background: transparent;        font-size: 1.1rem;
-
-        color: white;        border-radius: 50px;
-
-        padding: 15px 40px;        transition: all 0.3s ease;
-
-        font-size: 1.1rem;    }
-
-        border-radius: 50px;    
-
-        transition: all 0.3s ease;    .btn-outline-gradient:hover {
-
-    }        background: white;
-
-            color: #667eea;
-
-    .btn-outline-gradient:hover {        transform: translateY(-3px);
-
-        background: white;    }
-
-        color: #667eea;    
-
-        transform: translateY(-3px);    .stats-section {
-
-    }        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-
-            padding: 80px 0;
-
-    .stats-section {    }
-
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);    
-
-        padding: 80px 0;    .stat-number {
-
-    }        font-size: 3rem;
-
-            font-weight: bold;
-
-    .stat-number {        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-        font-size: 3rem;        -webkit-background-clip: text;
-
-        font-weight: bold;        -webkit-text-fill-color: transparent;
-
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        background-clip: text;
-
-        -webkit-background-clip: text;    }
-
-        -webkit-text-fill-color: transparent;</style>
+        -webkit-text-fill-color: transparent;        0% { opacity: 0.5; }        0% { opacity: 0.5; }
 
         background-clip: text;
 
-    }<!-- Hero Section -->
+    }        50% { opacity: 1; }        50% { opacity: 1; }
 
-    <div class="hero-section">
+    
+
+    .btn-gradient {        100% { opacity: 0.5; }        100% { opacity: 0.5; }
+
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        border: none;    }    }
+
+        padding: 15px 40px;
+
+        font-size: 1.1rem;        
+
+        border-radius: 50px;
+
+        transition: all 0.3s ease;    .hero-content {    .hero-content {
+
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+
+        color: white;        position: relative;        position: relative;
+
+    }
+
+            z-index: 1;        z-index: 1;
+
+    .btn-gradient:hover {
+
+        transform: translateY(-3px);    }    }
+
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+
+        color: white;        
+
+    }
+
+        .feature-card {    .feature-card {
+
+    .btn-outline-gradient {
+
+        border: 2px solid white;        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+        background: transparent;
+
+        color: white;        border: none;        border: none;
+
+        padding: 15px 40px;
+
+        font-size: 1.1rem;        border-radius: 15px;        border-radius: 15px;
+
+        border-radius: 50px;
+
+        transition: all 0.3s ease;        transition: transform 0.3s ease, box-shadow 0.3s ease;        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    }
+
+            height: 100%;        height: 100%;
+
+    .btn-outline-gradient:hover {
+
+        background: white;        padding: 2rem;    }
+
+        color: #667eea;
+
+        transform: translateY(-3px);    }    
+
+    }
+
+            .feature-card:hover {
+
+    .stats-section {
+
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);    .feature-card:hover {        transform: translateY(-10px);
+
+        padding: 80px 0;
+
+    }        transform: translateY(-10px);        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+
+    
+
+    .stat-number {        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);    }
+
+        font-size: 3rem;
+
+        font-weight: bold;    }    
+
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        -webkit-background-clip: text;        .feature-icon {
+
+        -webkit-text-fill-color: transparent;
+
+        background-clip: text;    .feature-icon {        font-size: 3rem;
+
+    }
+
+            font-size: 3rem;        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+    .gradient-text {
+
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        -webkit-background-clip: text;
+
+        -webkit-background-clip: text;
+
+        -webkit-text-fill-color: transparent;        -webkit-background-clip: text;        -webkit-text-fill-color: transparent;
+
+        background-clip: text;
+
+    }        -webkit-text-fill-color: transparent;        background-clip: text;
+
+</style>
+
+        background-clip: text;    }
+
+<!-- Hero Section -->
+
+<div class="hero-section">    }    
+
+    <div class="container hero-content">
+
+        <div class="row align-items-center">        .btn-gradient {
+
+            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
+
+                <h1 class="display-3 fw-bold mb-4">    .btn-gradient {        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+                    Welcome to <br><span class="text-white">Meeting Notes App</span>
+
+                </h1>        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        border: none;
+
+                <p class="lead mb-4 fs-4">
+
+                    Streamline your meetings, collaborate with your team, and never miss an important detail again.        border: none;        padding: 15px 40px;
+
+                </p>
+
+                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">        padding: 15px 40px;        font-size: 1.1rem;
+
+                    {% if user.is_authenticated %}
+
+                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-gradient">        font-size: 1.1rem;        border-radius: 50px;
+
+                            <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+
+                        </a>        border-radius: 50px;        transition: all 0.3s ease;
+
+                        <a href="{% url 'meeting_list' %}" class="btn btn-outline-gradient">
+
+                            <i class="bi bi-calendar-event me-2"></i>View Meetings        transition: all 0.3s ease;        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+
+                        </a>
+
+                    {% else %}        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);    }
+
+                        <a href="{% url 'register' %}" class="btn btn-light btn-gradient">
+
+                            <i class="bi bi-person-plus me-2"></i>Get Started Free        color: white;    
+
+                        </a>
+
+                        <a href="{% url 'login' %}" class="btn btn-outline-gradient">    }    .btn-gradient:hover {
+
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+
+                        </a>            transform: translateY(-3px);
+
+                    {% endif %}
+
+                </div>    .btn-gradient:hover {        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+
+            </div>
+
+            <div class="col-lg-6">        transform: translateY(-3px);    }
+
+                <div class="text-center">
+
+                    <i class="bi bi-calendar-check" style="font-size: 15rem; opacity: 0.2;"></i>        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);    
+
+                </div>
+
+            </div>        color: white;    .btn-outline-gradient {
+
+        </div>
+
+    </div>    }        border: 2px solid white;
+
+</div>
+
+            background: transparent;
+
+<!-- Features Section -->
+
+<div class="container my-5 py-5">    .btn-outline-gradient {        color: white;
+
+    <div class="text-center mb-5">
+
+        <h2 class="display-5 fw-bold mb-3 gradient-text">        border: 2px solid white;        padding: 15px 40px;
+
+            Powerful Features
+
+        </h2>        background: transparent;        font-size: 1.1rem;
+
+        <p class="lead text-muted">Everything you need to manage your meetings effectively</p>
+
+    </div>        color: white;        border-radius: 50px;
+
+    
+
+    <div class="row g-4">        padding: 15px 40px;        transition: all 0.3s ease;
+
+        <div class="col-md-4">
+
+            <div class="feature-card text-center">        font-size: 1.1rem;    }
+
+                <div class="feature-icon mb-3">
+
+                    <i class="bi bi-calendar-event"></i>        border-radius: 50px;    
+
+                </div>
+
+                <h5 class="fw-bold mb-3">Manage Meetings</h5>        transition: all 0.3s ease;    .btn-outline-gradient:hover {
+
+                <p class="text-muted">Create, edit, and organize all your meetings in one centralized place. Never lose track of important discussions.</p>
+
+            </div>    }        background: white;
+
+        </div>
+
+                    color: #667eea;
+
+        <div class="col-md-4">
+
+            <div class="feature-card text-center">    .btn-outline-gradient:hover {        transform: translateY(-3px);
+
+                <div class="feature-icon mb-3">
+
+                    <i class="bi bi-pencil-square"></i>        background: white;    }
+
+                </div>
+
+                <h5 class="fw-bold mb-3">Take Notes</h5>        color: #667eea;    
+
+                <p class="text-muted">Capture important discussion points, decisions, and action items during meetings. Keep everything documented.</p>
+
+            </div>        transform: translateY(-3px);    .stats-section {
+
+        </div>
+
+            }        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+        <div class="col-md-4">
+
+            <div class="feature-card text-center">            padding: 80px 0;
+
+                <div class="feature-icon mb-3">
+
+                    <i class="bi bi-people"></i>    .stats-section {    }
+
+                </div>
+
+                <h5 class="fw-bold mb-3">Track Attendees</h5>        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);    
+
+                <p class="text-muted">Manage participant lists, track attendance status, and keep everyone in the loop with real-time updates.</p>
+
+            </div>        padding: 80px 0;    .stat-number {
+
+        </div>
+
+    </div>    }        font-size: 3rem;
+
+</div>
+
+            font-weight: bold;
+
+<!-- Stats Section -->
+
+<div class="stats-section">    .stat-number {        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+    <div class="container">
+
+        <div class="row text-center">        font-size: 3rem;        -webkit-background-clip: text;
+
+            <div class="col-md-4 mb-4 mb-md-0">
+
+                <div class="stat-number">100%</div>        font-weight: bold;        -webkit-text-fill-color: transparent;
+
+                <p class="text-muted fs-5">Free & Open Source</p>
+
+            </div>        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        background-clip: text;
+
+            <div class="col-md-4 mb-4 mb-md-0">
+
+                <div class="stat-number">∞</div>        -webkit-background-clip: text;    }
+
+                <p class="text-muted fs-5">Unlimited Meetings</p>
+
+            </div>        -webkit-text-fill-color: transparent;</style>
+
+            <div class="col-md-4">
+
+                <div class="stat-number">24/7</div>        background-clip: text;
+
+                <p class="text-muted fs-5">Always Available</p>
+
+            </div>    }<!-- Hero Section -->
+
+        </div>
+
+    </div>    <div class="hero-section">
+
+</div>
 
     .gradient-text {    <div class="container hero-content">
 
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        <div class="row align-items-center">
+<!-- How It Works Section -->
 
-        -webkit-background-clip: text;            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
+<div class="container my-5 py-5">        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        <div class="row align-items-center">
 
-        -webkit-text-fill-color: transparent;                <h1 class="display-3 fw-bold mb-4" data-aos="fade-up">
+    <div class="text-center mb-5">
 
-        background-clip: text;                    Welcome to <br>Meeting Notes App
+        <h2 class="display-5 fw-bold mb-3 gradient-text">        -webkit-background-clip: text;            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
 
-    }                </h1>
+            How It Works
 
-</style>                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">
+        </h2>        -webkit-text-fill-color: transparent;                <h1 class="display-3 fw-bold mb-4" data-aos="fade-up">
 
-                    Streamline your meetings, collaborate with your team, and never miss an important detail again.
+        <p class="lead text-muted">Get started in three simple steps</p>
 
-<!-- Hero Section -->                </p>
+    </div>        background-clip: text;                    Welcome to <br>Meeting Notes App
 
-<div class="hero-section">                <div class="d-flex gap-3 justify-content-center justify-content-lg-start" data-aos="fade-up" data-aos-delay="200">
+    
 
-    <div class="container hero-content">                    {% if user.is_authenticated %}
+    <div class="row align-items-center">    }                </h1>
 
-        <div class="row align-items-center">                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-gradient">
+        <div class="col-md-4 text-center mb-4">
 
-            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">                            <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+            <div class="rounded-circle bg-gradient d-inline-flex align-items-center justify-content-center mb-3" </style>                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">
 
-                <h1 class="display-3 fw-bold mb-4">                        </a>
+                 style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
 
-                    Welcome to <br><span class="text-white">Meeting Notes App</span>                    {% else %}
+                <span class="text-white fs-1 fw-bold">1</span>                    Streamline your meetings, collaborate with your team, and never miss an important detail again.
 
-                </h1>                        <a href="{% url 'register' %}" class="btn btn-light btn-gradient">
+            </div>
 
-                <p class="lead mb-4 fs-4">                            <i class="bi bi-person-plus me-2"></i>Get Started Free
+            <h5 class="fw-bold">Create Account</h5><!-- Hero Section -->                </p>
 
-                    Streamline your meetings, collaborate with your team, and never miss an important detail again.                        </a>
+            <p class="text-muted">Sign up for free in seconds</p>
 
-                </p>                        <a href="{% url 'login' %}" class="btn btn-outline-gradient">
+        </div><div class="hero-section">                <div class="d-flex gap-3 justify-content-center justify-content-lg-start" data-aos="fade-up" data-aos-delay="200">
 
-                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">                            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+        
 
-                    {% if user.is_authenticated %}                        </a>
+        <div class="col-md-4 text-center mb-4">    <div class="container hero-content">                    {% if user.is_authenticated %}
 
-                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-gradient">                    {% endif %}
+            <div class="rounded-circle bg-gradient d-inline-flex align-items-center justify-content-center mb-3" 
 
-                            <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard                </div>
+                 style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">        <div class="row align-items-center">                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-gradient">
 
-                        </a>            </div>
+                <span class="text-white fs-1 fw-bold">2</span>
 
-                        <a href="{% url 'meeting_list' %}" class="btn btn-outline-gradient">            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+            </div>            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">                            <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
 
-                            <i class="bi bi-calendar-event me-2"></i>View Meetings                <div class="text-center">
+            <h5 class="fw-bold">Schedule Meetings</h5>
 
-                        </a>                    <i class="bi bi-calendar-check" style="font-size: 15rem; opacity: 0.2;"></i>
+            <p class="text-muted">Add your meetings and invite attendees</p>                <h1 class="display-3 fw-bold mb-4">                        </a>
 
-                    {% else %}                </div>
+        </div>
+
+                            Welcome to <br><span class="text-white">Meeting Notes App</span>                    {% else %}
+
+        <div class="col-md-4 text-center mb-4">
+
+            <div class="rounded-circle bg-gradient d-inline-flex align-items-center justify-content-center mb-3"                 </h1>                        <a href="{% url 'register' %}" class="btn btn-light btn-gradient">
+
+                 style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+
+                <span class="text-white fs-1 fw-bold">3</span>                <p class="lead mb-4 fs-4">                            <i class="bi bi-person-plus me-2"></i>Get Started Free
+
+            </div>
+
+            <h5 class="fw-bold">Take Notes & Collaborate</h5>                    Streamline your meetings, collaborate with your team, and never miss an important detail again.                        </a>
+
+            <p class="text-muted">Document everything and stay organized</p>
+
+        </div>                </p>                        <a href="{% url 'login' %}" class="btn btn-outline-gradient">
+
+    </div>
+
+</div>                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">                            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+
+
+
+<!-- CTA Section -->                    {% if user.is_authenticated %}                        </a>
+
+<div class="hero-section" style="min-height: 50vh;">
+
+    <div class="container hero-content text-center">                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-gradient">                    {% endif %}
+
+        <h2 class="display-4 fw-bold mb-4">Ready to Get Started?</h2>
+
+        <p class="lead mb-4">Join thousands of teams managing their meetings more effectively</p>                            <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard                </div>
+
+        {% if not user.is_authenticated %}
+
+            <a href="{% url 'register' %}" class="btn btn-light btn-gradient btn-lg">                        </a>            </div>
+
+                <i class="bi bi-rocket-takeoff me-2"></i>Start Free Today
+
+            </a>                        <a href="{% url 'meeting_list' %}" class="btn btn-outline-gradient">            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+
+        {% else %}
+
+            <a href="{% url 'meeting_create' %}" class="btn btn-light btn-gradient btn-lg">                            <i class="bi bi-calendar-event me-2"></i>View Meetings                <div class="text-center">
+
+                <i class="bi bi-plus-circle me-2"></i>Create Your First Meeting
+
+            </a>                        </a>                    <i class="bi bi-calendar-check" style="font-size: 15rem; opacity: 0.2;"></i>
+
+        {% endif %}
+
+    </div>                    {% else %}                </div>
+
+</div>
 
                         <a href="{% url 'register' %}" class="btn btn-light btn-gradient">            </div>
+
+{% endblock %}
 
                             <i class="bi bi-person-plus me-2"></i>Get Started Free        </div>
 
