@@ -1,53 +1,152 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}{% extends 'base.html' %}{% extends "base.html" %}
 
-{% block title %}Meetings - Meeting Notes App{% endblock %}
 
-{% block content %}
+
+{% block title %}Home - Meeting Notes App{% endblock %}
+
+
+
+{% block content %}{% block title %}Home - Meeting Notes App{% endblock %}{% block title %}Meetings - Meeting Notes App{% endblock %}
+
 <div class="row">
-    <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1><i class="bi bi-calendar-event"></i> My Meetings</h1>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createMeetingModal">
-                <i class="bi bi-plus-circle"></i> New Meeting
-            </button>
+
+    <div class="col-md-12">
+
+        <div class="jumbotron text-center py-5">
+
+            <h1 class="display-4">Welcome to Meeting Notes App</h1>{% block content %}{% block content %}
+
+            <p class="lead">Organize your meetings, track attendees, and manage notes efficiently.</p>
+
+            <hr class="my-4"><div class="row"><div class="row">
+
+            {% if user.is_authenticated %}
+
+                <p>Welcome back, {{ user.username }}!</p>    <div class="col-md-12">    <div class="col-12">
+
+                <a class="btn btn-primary btn-lg" href="{% url 'dashboard' %}" role="button">Go to Dashboard</a>
+
+            {% else %}        <div class="jumbotron text-center py-5">        <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <p>Please login or register to get started.</p>
+
+                <a class="btn btn-primary btn-lg me-2" href="{% url 'login' %}" role="button">Login</a>            <h1 class="display-4">Welcome to Meeting Notes App</h1>            <h1><i class="bi bi-calendar-event"></i> My Meetings</h1>
+
+                <a class="btn btn-success btn-lg" href="{% url 'register' %}" role="button">Register</a>
+
+            {% endif %}            <p class="lead">Organize your meetings, track attendees, and manage notes efficiently.</p>            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createMeetingModal">
+
         </div>
 
-        <!-- Search and Filter -->
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" id="searchInput" placeholder="Search meetings by title...">
-                    </div>
-                    <div class="col-md-4">
-                        <input type="date" class="form-control" id="dateFilter">
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-secondary w-100" id="clearFilters">
-                            <i class="bi bi-x-circle"></i> Clear
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>            <hr class="my-4">                <i class="bi bi-plus-circle"></i> New Meeting
 
-        <!-- Meetings List -->
-        <div id="meetingsList">
-            <div class="text-center py-5">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
-<!-- Create Meeting Modal -->
-<div class="modal fade" id="createMeetingModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create New Meeting</h5>
+            {% if user.is_authenticated %}            </button>
+
+<div class="row mt-5">
+
+    <div class="col-md-4">                <p>Welcome back, {{ user.username }}!</p>        </div>
+
+        <div class="card">
+
+            <div class="card-body">                <a class="btn btn-primary btn-lg" href="{% url 'dashboard' %}" role="button">Go to Dashboard</a>
+
+                <h5 class="card-title">📅 Manage Meetings</h5>
+
+                <p class="card-text">Create, edit, and organize all your meetings in one place.</p>            {% else %}        <!-- Search and Filter -->
+
+            </div>
+
+        </div>                <p>Please login or register to get started.</p>        <div class="card mb-4">
+
+    </div>
+
+    <div class="col-md-4">                <a class="btn btn-primary btn-lg me-2" href="{% url 'login' %}" role="button">Login</a>            <div class="card-body">
+
+        <div class="card">
+
+            <div class="card-body">                <a class="btn btn-success btn-lg" href="{% url 'register' %}" role="button">Register</a>                <div class="row g-3">
+
+                <h5 class="card-title">📝 Take Notes</h5>
+
+                <p class="card-text">Capture important discussion points and action items.</p>            {% endif %}                    <div class="col-md-6">
+
+            </div>
+
+        </div>        </div>                        <input type="text" class="form-control" id="searchInput" placeholder="Search meetings by title...">
+
+    </div>
+
+    <div class="col-md-4">    </div>                    </div>
+
+        <div class="card">
+
+            <div class="card-body"></div>                    <div class="col-md-4">
+
+                <h5 class="card-title">👥 Track Attendees</h5>
+
+                <p class="card-text">Manage participant lists and track attendance.</p>                        <input type="date" class="form-control" id="dateFilter">
+
+            </div>
+
+        </div><div class="row mt-5">                    </div>
+
+    </div>
+
+</div>    <div class="col-md-4">                    <div class="col-md-2">
+
+{% endblock %}
+
+        <div class="card">                        <button class="btn btn-secondary w-100" id="clearFilters">
+
+            <div class="card-body">                            <i class="bi bi-x-circle"></i> Clear
+
+                <h5 class="card-title">📅 Manage Meetings</h5>                        </button>
+
+                <p class="card-text">Create, edit, and organize all your meetings in one place.</p>                    </div>
+
+            </div>                </div>
+
+        </div>            </div>
+
+    </div>        </div>
+
+    <div class="col-md-4">
+
+        <div class="card">        <!-- Meetings List -->
+
+            <div class="card-body">        <div id="meetingsList">
+
+                <h5 class="card-title">📝 Take Notes</h5>            <div class="text-center py-5">
+
+                <p class="card-text">Capture important discussion points and action items during meetings.</p>                <div class="spinner-border text-primary" role="status">
+
+            </div>                    <span class="visually-hidden">Loading...</span>
+
+        </div>                </div>
+
+    </div>            </div>
+
+    <div class="col-md-4">        </div>
+
+        <div class="card">    </div>
+
+            <div class="card-body"></div>
+
+                <h5 class="card-title">👥 Track Attendees</h5>
+
+                <p class="card-text">Manage participant lists and track attendance status.</p><!-- Create Meeting Modal -->
+
+            </div><div class="modal fade" id="createMeetingModal" tabindex="-1">
+
+        </div>    <div class="modal-dialog">
+
+    </div>        <div class="modal-content">
+
+</div>            <div class="modal-header">
+
+{% endblock %}                <h5 class="modal-title">Create New Meeting</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form id="createMeetingForm">

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Meeting - Meeting Notes App{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3>Delete Meeting</h3>
+            </div>
+            <div class="card-body">
+                <p>Are you sure you want to delete "{{ meeting.title }}"?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    <a href="{% url 'meeting_detail' meeting.pk %}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

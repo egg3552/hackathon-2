@@ -1,84 +1,243 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}{% extends 'base.html' %}{% extends "base.html" %}
 
-{% block title %}Meeting Details - Meeting Notes App{% endblock %}
 
-{% block content %}
-<div class="row" id="meetingDetailPage" data-meeting-id="{{ meeting_id }}">
-    <div class="col-12">
-        <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary mb-3">
-            <i class="bi bi-arrow-left"></i> Back to Meetings
-        </a>
-        
-        <!-- Meeting Header -->
-        <div id="meetingHeader" class="card mb-4">
+
+{% block title %}{{ meeting.title }} - Meeting Details{% endblock %}
+
+
+
+{% block content %}{% block title %}{{ meeting.title }} - Meeting Details{% endblock %}{% block title %}Meeting Details - Meeting Notes App{% endblock %}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="card">
+
+            <div class="card-header d-flex justify-content-between align-items-center">{% block content %}{% block content %}
+
+                <h2>{{ meeting.title }}</h2>
+
+                {% if meeting.created_by == user %}<div class="row"><div class="row" id="meetingDetailPage" data-meeting-id="{{ meeting_id }}">
+
+                    <div>
+
+                        <a href="{% url 'meeting_edit' meeting.pk %}" class="btn btn-warning btn-sm">Edit</a>    <div class="col-md-12">    <div class="col-12">
+
+                        <a href="{% url 'meeting_delete' meeting.pk %}" class="btn btn-danger btn-sm">Delete</a>
+
+                    </div>        <div class="card">        <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary mb-3">
+
+                {% endif %}
+
+            </div>            <div class="card-header d-flex justify-content-between align-items-center">            <i class="bi bi-arrow-left"></i> Back to Meetings
+
             <div class="card-body">
-                <div class="text-center py-3">
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-            </div>
+
+                <p><strong>Date:</strong> {{ meeting.date|date:"F d, Y H:i" }}</p>                <h2>{{ meeting.title }}</h2>        </a>
+
+                <p><strong>Location:</strong> {{ meeting.location|default:"Not specified" }}</p>
+
+                <p><strong>Description:</strong> {{ meeting.description|default:"No description" }}</p>                {% if meeting.created_by == user %}        
+
+                <p><strong>Created by:</strong> {{ meeting.created_by.username }}</p>
+
+            </div>                    <div>        <!-- Meeting Header -->
+
         </div>
 
-        <div class="row">
-            <!-- Notes Section -->
-            <div class="col-md-7">
-                <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0"><i class="bi bi-journal-text"></i> Notes</h5>
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createNoteModal">
-                            <i class="bi bi-plus-circle"></i> Add Note
-                        </button>
-                    </div>
-                    <div class="card-body" id="notesList">
-                        <div class="text-center py-3">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <a href="{% url 'meeting_edit' meeting.pk %}" class="btn btn-warning btn-sm">Edit</a>        <div id="meetingHeader" class="card mb-4">
+
+        <div class="card mt-4">
+
+            <div class="card-header d-flex justify-content-between align-items-center">                        <a href="{% url 'meeting_delete' meeting.pk %}" class="btn btn-danger btn-sm">Delete</a>            <div class="card-body">
+
+                <h4>Attendees</h4>
+
+                <a href="{% url 'attendee_add' meeting.pk %}" class="btn btn-primary btn-sm">Add Attendee</a>                    </div>                <div class="text-center py-3">
+
             </div>
 
-            <!-- Attendees Section -->
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0"><i class="bi bi-people"></i> Attendees</h5>
-                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createAttendeeModal">
-                            <i class="bi bi-person-plus"></i> Add
-                        </button>
-                    </div>
-                    <div class="card-body" id="attendeesList">
-                        <div class="text-center py-3">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="card-body">                {% endif %}                    <div class="spinner-border text-primary" role="status">
+
+                {% if attendees %}
+
+                    <ul class="list-group">            </div>                        <span class="visually-hidden">Loading...</span>
+
+                        {% for attendee in attendees %}
+
+                            <li class="list-group-item d-flex justify-content-between align-items-center">            <div class="card-body">                    </div>
+
+                                <span>{{ attendee.user.username }} - <span class="badge bg-info">{{ attendee.get_status_display }}</span></span>
+
+                                <a href="{% url 'attendee_remove' attendee.pk %}" class="btn btn-danger btn-sm">Remove</a>                <p><strong>Date:</strong> {{ meeting.date|date:"F d, Y H:i" }}</p>                </div>
+
+                            </li>
+
+                        {% endfor %}                <p><strong>Location:</strong> {{ meeting.location|default:"Not specified" }}</p>            </div>
+
+                    </ul>
+
+                {% else %}                <p><strong>Description:</strong> {{ meeting.description|default:"No description" }}</p>        </div>
+
+                    <p>No attendees yet.</p>
+
+                {% endif %}                <p><strong>Created by:</strong> {{ meeting.created_by.username }}</p>
+
             </div>
+
+        </div>            </div>        <div class="row">
+
+
+
+        <div class="card mt-4">        </div>            <!-- Notes Section -->
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+                <h4>Notes</h4>            <div class="col-md-7">
+
+                <a href="{% url 'note_create' meeting.pk %}" class="btn btn-primary btn-sm">Add Note</a>
+
+            </div>        <!-- Attendees Section -->                <div class="card mb-4">
+
+            <div class="card-body">
+
+                {% if notes %}        <div class="card mt-4">                    <div class="card-header d-flex justify-content-between align-items-center">
+
+                    {% for note in notes %}
+
+                        <div class="card mb-3">            <div class="card-header d-flex justify-content-between align-items-center">                        <h5 class="mb-0"><i class="bi bi-journal-text"></i> Notes</h5>
+
+                            <div class="card-body">
+
+                                <p>{{ note.content }}</p>                <h4>Attendees</h4>                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createNoteModal">
+
+                                <small class="text-muted">By {{ note.created_by.username }} on {{ note.created_at|date:"F d, Y H:i" }}</small>
+
+                                {% if note.created_by == user %}                <a href="{% url 'attendee_add' meeting.pk %}" class="btn btn-primary btn-sm">Add Attendee</a>                            <i class="bi bi-plus-circle"></i> Add Note
+
+                                    <div class="mt-2">
+
+                                        <a href="{% url 'note_edit' note.pk %}" class="btn btn-warning btn-sm">Edit</a>            </div>                        </button>
+
+                                        <a href="{% url 'note_delete' note.pk %}" class="btn btn-danger btn-sm">Delete</a>
+
+                                    </div>            <div class="card-body">                    </div>
+
+                                {% endif %}
+
+                            </div>                {% if attendees %}                    <div class="card-body" id="notesList">
+
+                        </div>
+
+                    {% endfor %}                    <ul class="list-group">                        <div class="text-center py-3">
+
+                {% else %}
+
+                    <p>No notes yet.</p>                        {% for attendee in attendees %}                            <div class="spinner-border text-primary" role="status">
+
+                {% endif %}
+
+            </div>                            <li class="list-group-item d-flex justify-content-between align-items-center">                                <span class="visually-hidden">Loading...</span>
+
         </div>
-    </div>
+
+                                <span>{{ attendee.user.username }} - <span class="badge bg-info">{{ attendee.get_status_display }}</span></span>                            </div>
+
+        <div class="mt-3">
+
+            <a href="{% url 'meeting_list' %}" class="btn btn-secondary">Back to Meetings</a>                                <a href="{% url 'attendee_remove' attendee.pk %}" class="btn btn-danger btn-sm">Remove</a>                        </div>
+
+        </div>
+
+    </div>                            </li>                    </div>
+
 </div>
 
-<!-- Create Note Modal -->
-<div class="modal fade" id="createNoteModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Note</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form id="createNoteForm">
-                <div class="modal-body">
+{% endblock %}                        {% endfor %}                </div>
+
+
+                    </ul>            </div>
+
+                {% else %}
+
+                    <p>No attendees yet.</p>            <!-- Attendees Section -->
+
+                {% endif %}            <div class="col-md-5">
+
+            </div>                <div class="card">
+
+        </div>                    <div class="card-header d-flex justify-content-between align-items-center">
+
+                        <h5 class="mb-0"><i class="bi bi-people"></i> Attendees</h5>
+
+        <!-- Notes Section -->                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createAttendeeModal">
+
+        <div class="card mt-4">                            <i class="bi bi-person-plus"></i> Add
+
+            <div class="card-header d-flex justify-content-between align-items-center">                        </button>
+
+                <h4>Notes</h4>                    </div>
+
+                <a href="{% url 'note_create' meeting.pk %}" class="btn btn-primary btn-sm">Add Note</a>                    <div class="card-body" id="attendeesList">
+
+            </div>                        <div class="text-center py-3">
+
+            <div class="card-body">                            <div class="spinner-border text-primary" role="status">
+
+                {% if notes %}                                <span class="visually-hidden">Loading...</span>
+
+                    {% for note in notes %}                            </div>
+
+                        <div class="card mb-3">                        </div>
+
+                            <div class="card-body">                    </div>
+
+                                <p>{{ note.content }}</p>                </div>
+
+                                <small class="text-muted">By {{ note.created_by.username }} on {{ note.created_at|date:"F d, Y H:i" }}</small>            </div>
+
+                                {% if note.created_by == user %}        </div>
+
+                                    <div class="mt-2">    </div>
+
+                                        <a href="{% url 'note_edit' note.pk %}" class="btn btn-warning btn-sm">Edit</a></div>
+
+                                        <a href="{% url 'note_delete' note.pk %}" class="btn btn-danger btn-sm">Delete</a>
+
+                                    </div><!-- Create Note Modal -->
+
+                                {% endif %}<div class="modal fade" id="createNoteModal" tabindex="-1">
+
+                            </div>    <div class="modal-dialog modal-lg">
+
+                        </div>        <div class="modal-content">
+
+                    {% endfor %}            <div class="modal-header">
+
+                {% else %}                <h5 class="modal-title">Add Note</h5>
+
+                    <p>No notes yet.</p>                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+                {% endif %}            </div>
+
+            </div>            <form id="createNoteForm">
+
+        </div>                <div class="modal-body">
+
                     <div class="mb-3">
-                        <label for="noteContent" class="form-label">Content (Markdown supported)</label>
-                        <textarea class="form-control" id="noteContent" rows="10" required></textarea>
-                        <small class="text-muted">You can use Markdown formatting</small>
-                    </div>
-                </div>
-                <div class="modal-footer">
+
+        <div class="mt-3">                        <label for="noteContent" class="form-label">Content (Markdown supported)</label>
+
+            <a href="{% url 'meeting_list' %}" class="btn btn-secondary">Back to Meetings</a>                        <textarea class="form-control" id="noteContent" rows="10" required></textarea>
+
+        </div>                        <small class="text-muted">You can use Markdown formatting</small>
+
+    </div>                    </div>
+
+</div>                </div>
+
+{% endblock %}                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Save Note</button>
                 </div>

@@ -1,1 +1,1 @@
-web: gunicorn manage:app
+web: gunicorn meeting_notes.wsgi:application

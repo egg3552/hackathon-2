@@ -1,49 +1,27 @@
-"""
-Application entry point for running the Flask app.
-Used for local development and Heroku deployment.
-"""
+#!/usr/bin/env python
+"""Django's command-line utility for administrative tasks."""
 import os
-from app import create_app, db
-from app.models import User, Meeting, Note, Attendee
-
-# Create Flask application instance
-app = create_app(os.getenv('FLASK_ENV') or 'default')
+import sys
 
 
-@app.shell_context_processor
-def make_shell_context():
-    """
-    Make database and models available in Flask shell.
-    Usage: flask shell
-    """
-    return {
-        'db': db,
-        'User': User,
-        'Meeting': Meeting,
-        'Note': Note,
-        'Attendee': Attendee
-    }
+def main():
+    """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'meeting_notes.settings')
 
+    # Import env.py for local development (Code Institute pattern)
+    if os.path.isfile('env.py'):
+        import env  # noqa
 
-@app.cli.command()
-def initdb():
-    """
-    Initialize the database.
-    Usage: flask initdb
-    """
-    db.create_all()
-    print('Database initialized.')
-
-
-@app.cli.command()
-def dropdb():
-    """
-    Drop all database tables.
-    Usage: flask dropdb
-    """
-    db.drop_all()
-    print('Database dropped.')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(sys.argv)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    main()

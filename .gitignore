@@ -5,21 +5,25 @@ __pycache__/
 *.so
 .Python
 venv/
+.venv/
 env/
+.env/
 ENV/
 *.egg-info/
 dist/
 build/
 
-# Flask
-instance/
-*.db
-*.sqlite
-*.sqlite3
-dev.db
+# Django
+*.log
+*.pot
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/
 
-# Environment variables
+# Environment variables - CRITICAL: Keep secrets out of GitHub!
 .env
+env.py
 
 # IDE
 .vscode/
@@ -32,5 +36,5 @@ dev.db
 .DS_Store
 Thumbs.db
 
-# Migrations
-migrations/versions/*.pyc
+# Code Institute team project requirements
+# Keep venv and env.py out of GitHub for team collaboration
