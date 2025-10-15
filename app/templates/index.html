@@ -1,172 +1,547 @@
-{% extends 'base.html' %}{% extends 'base.html' %}{% extends "base.html" %}
+{% extends 'base.html' %}{% extends 'base.html' %}
 
 
 
-{% block title %}Home - Meeting Notes App{% endblock %}
+{% block title %}Home - Meeting Notes App{% endblock %}{% block title %}Home - Meeting Notes App{% endblock %}
 
 
 
-{% block content %}{% block title %}Home - Meeting Notes App{% endblock %}{% block title %}Meetings - Meeting Notes App{% endblock %}
+{% block content %}{% block content %}
 
-<div class="row">
+<style><style>
 
-    <div class="col-md-12">
+    .hero-section {    .hero-section {
 
-        <div class="jumbotron text-center py-5">
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
-            <h1 class="display-4">Welcome to Meeting Notes App</h1>{% block content %}{% block content %}
+        min-height: 90vh;        min-height: 90vh;
 
-            <p class="lead">Organize your meetings, track attendees, and manage notes efficiently.</p>
+        display: flex;        display: flex;
 
-            <hr class="my-4"><div class="row"><div class="row">
+        align-items: center;        align-items: center;
 
-            {% if user.is_authenticated %}
+        color: white;        color: white;
 
-                <p>Welcome back, {{ user.username }}!</p>    <div class="col-md-12">    <div class="col-12">
+        position: relative;        position: relative;
 
-                <a class="btn btn-primary btn-lg" href="{% url 'dashboard' %}" role="button">Go to Dashboard</a>
+        overflow: hidden;        overflow: hidden;
 
-            {% else %}        <div class="jumbotron text-center py-5">        <div class="d-flex justify-content-between align-items-center mb-4">
+    }    }
 
-                <p>Please login or register to get started.</p>
+        
 
-                <a class="btn btn-primary btn-lg me-2" href="{% url 'login' %}" role="button">Login</a>            <h1 class="display-4">Welcome to Meeting Notes App</h1>            <h1><i class="bi bi-calendar-event"></i> My Meetings</h1>
+    .hero-section::before {    .hero-section::before {
 
-                <a class="btn btn-success btn-lg" href="{% url 'register' %}" role="button">Register</a>
+        content: '';        content: '';
 
-            {% endif %}            <p class="lead">Organize your meetings, track attendees, and manage notes efficiently.</p>            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createMeetingModal">
+        position: absolute;        position: absolute;
+
+        top: 0;        top: 0;
+
+        left: 0;        left: 0;
+
+        right: 0;        right: 0;
+
+        bottom: 0;        bottom: 0;
+
+        background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);        background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+
+        animation: gradient 15s ease infinite;        animation: gradient 15s ease infinite;
+
+    }    }
+
+        
+
+    @keyframes gradient {    @keyframes gradient {
+
+        0% { opacity: 0.5; }        0% { opacity: 0.5; }
+
+        50% { opacity: 1; }        50% { opacity: 1; }
+
+        100% { opacity: 0.5; }        100% { opacity: 0.5; }
+
+    }    }
+
+        
+
+    .hero-content {    .hero-content {
+
+        position: relative;        position: relative;
+
+        z-index: 1;        z-index: 1;
+
+    }    }
+
+        
+
+    .feature-card {    .feature-card {
+
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+        border: none;        border: none;
+
+        border-radius: 15px;        border-radius: 15px;
+
+        transition: transform 0.3s ease, box-shadow 0.3s ease;        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        height: 100%;        height: 100%;
+
+        padding: 2rem;    }
+
+    }    
+
+        .feature-card:hover {
+
+    .feature-card:hover {        transform: translateY(-10px);
+
+        transform: translateY(-10px);        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);    }
+
+    }    
+
+        .feature-icon {
+
+    .feature-icon {        font-size: 3rem;
+
+        font-size: 3rem;        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        -webkit-background-clip: text;
+
+        -webkit-background-clip: text;        -webkit-text-fill-color: transparent;
+
+        -webkit-text-fill-color: transparent;        background-clip: text;
+
+        background-clip: text;    }
+
+    }    
+
+        .btn-gradient {
+
+    .btn-gradient {        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        border: none;
+
+        border: none;        padding: 15px 40px;
+
+        padding: 15px 40px;        font-size: 1.1rem;
+
+        font-size: 1.1rem;        border-radius: 50px;
+
+        border-radius: 50px;        transition: all 0.3s ease;
+
+        transition: all 0.3s ease;        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);    }
+
+        color: white;    
+
+    }    .btn-gradient:hover {
+
+            transform: translateY(-3px);
+
+    .btn-gradient:hover {        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+
+        transform: translateY(-3px);    }
+
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);    
+
+        color: white;    .btn-outline-gradient {
+
+    }        border: 2px solid white;
+
+            background: transparent;
+
+    .btn-outline-gradient {        color: white;
+
+        border: 2px solid white;        padding: 15px 40px;
+
+        background: transparent;        font-size: 1.1rem;
+
+        color: white;        border-radius: 50px;
+
+        padding: 15px 40px;        transition: all 0.3s ease;
+
+        font-size: 1.1rem;    }
+
+        border-radius: 50px;    
+
+        transition: all 0.3s ease;    .btn-outline-gradient:hover {
+
+    }        background: white;
+
+            color: #667eea;
+
+    .btn-outline-gradient:hover {        transform: translateY(-3px);
+
+        background: white;    }
+
+        color: #667eea;    
+
+        transform: translateY(-3px);    .stats-section {
+
+    }        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+            padding: 80px 0;
+
+    .stats-section {    }
+
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);    
+
+        padding: 80px 0;    .stat-number {
+
+    }        font-size: 3rem;
+
+            font-weight: bold;
+
+    .stat-number {        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+        font-size: 3rem;        -webkit-background-clip: text;
+
+        font-weight: bold;        -webkit-text-fill-color: transparent;
+
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        background-clip: text;
+
+        -webkit-background-clip: text;    }
+
+        -webkit-text-fill-color: transparent;</style>
+
+        background-clip: text;
+
+    }<!-- Hero Section -->
+
+    <div class="hero-section">
+
+    .gradient-text {    <div class="container hero-content">
+
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);        <div class="row align-items-center">
+
+        -webkit-background-clip: text;            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
+
+        -webkit-text-fill-color: transparent;                <h1 class="display-3 fw-bold mb-4" data-aos="fade-up">
+
+        background-clip: text;                    Welcome to <br>Meeting Notes App
+
+    }                </h1>
+
+</style>                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">
+
+                    Streamline your meetings, collaborate with your team, and never miss an important detail again.
+
+<!-- Hero Section -->                </p>
+
+<div class="hero-section">                <div class="d-flex gap-3 justify-content-center justify-content-lg-start" data-aos="fade-up" data-aos-delay="200">
+
+    <div class="container hero-content">                    {% if user.is_authenticated %}
+
+        <div class="row align-items-center">                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-gradient">
+
+            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">                            <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard
+
+                <h1 class="display-3 fw-bold mb-4">                        </a>
+
+                    Welcome to <br><span class="text-white">Meeting Notes App</span>                    {% else %}
+
+                </h1>                        <a href="{% url 'register' %}" class="btn btn-light btn-gradient">
+
+                <p class="lead mb-4 fs-4">                            <i class="bi bi-person-plus me-2"></i>Get Started Free
+
+                    Streamline your meetings, collaborate with your team, and never miss an important detail again.                        </a>
+
+                </p>                        <a href="{% url 'login' %}" class="btn btn-outline-gradient">
+
+                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">                            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+
+                    {% if user.is_authenticated %}                        </a>
+
+                        <a href="{% url 'dashboard' %}" class="btn btn-light btn-gradient">                    {% endif %}
+
+                            <i class="bi bi-speedometer2 me-2"></i>Go to Dashboard                </div>
+
+                        </a>            </div>
+
+                        <a href="{% url 'meeting_list' %}" class="btn btn-outline-gradient">            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+
+                            <i class="bi bi-calendar-event me-2"></i>View Meetings                <div class="text-center">
+
+                        </a>                    <i class="bi bi-calendar-check" style="font-size: 15rem; opacity: 0.2;"></i>
+
+                    {% else %}                </div>
+
+                        <a href="{% url 'register' %}" class="btn btn-light btn-gradient">            </div>
+
+                            <i class="bi bi-person-plus me-2"></i>Get Started Free        </div>
+
+                        </a>    </div>
+
+                        <a href="{% url 'login' %}" class="btn btn-outline-gradient"></div>
+
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+
+                        </a><!-- Features Section -->
+
+                    {% endif %}<div class="container my-5 py-5">
+
+                </div>    <div class="text-center mb-5" data-aos="fade-up">
+
+            </div>        <h2 class="display-5 fw-bold mb-3">
+
+            <div class="col-lg-6">            <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+
+                <div class="text-center">                Powerful Features
+
+                    <i class="bi bi-calendar-check" style="font-size: 15rem; opacity: 0.2;"></i>            </span>
+
+                </div>        </h2>
+
+            </div>        <p class="lead text-muted">Everything you need to manage your meetings effectively</p>
+
+        </div>    </div>
+
+    </div>    
+
+</div>    <div class="row g-4">
+
+
+
+<!-- Features Section -->        <div class="card">
+
+<div class="container my-5 py-5">
+
+    <div class="text-center mb-5">            <div class="card-body">                <a class="btn btn-primary btn-lg" href="{% url 'dashboard' %}" role="button">Go to Dashboard</a>
+
+        <h2 class="display-5 fw-bold mb-3 gradient-text">
+
+            Powerful Features                <h5 class="card-title">📅 Manage Meetings</h5>
+
+        </h2>
+
+        <p class="lead text-muted">Everything you need to manage your meetings effectively</p>                <p class="card-text">Create, edit, and organize all your meetings in one place.</p>            {% else %}        <!-- Search and Filter -->
+
+    </div>
+
+                </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">        </div>                <p>Please login or register to get started.</p>        <div class="card mb-4">
+
+            <div class="feature-card text-center">
+
+                <div class="feature-icon mb-3">    </div>
+
+                    <i class="bi bi-calendar-event"></i>
+
+                </div>    <div class="col-md-4">                <a class="btn btn-primary btn-lg me-2" href="{% url 'login' %}" role="button">Login</a>            <div class="card-body">
+
+                <h5 class="fw-bold mb-3">Manage Meetings</h5>
+
+                <p class="text-muted">Create, edit, and organize all your meetings in one centralized place. Never lose track of important discussions.</p>        <div class="card">
+
+            </div>
+
+        </div>            <div class="card-body">                <a class="btn btn-success btn-lg" href="{% url 'register' %}" role="button">Register</a>                <div class="row g-3">
+
+        
+
+        <div class="col-md-4">                <h5 class="card-title">📝 Take Notes</h5>
+
+            <div class="feature-card text-center">
+
+                <div class="feature-icon mb-3">                <p class="card-text">Capture important discussion points and action items.</p>            {% endif %}                    <div class="col-md-6">
+
+                    <i class="bi bi-pencil-square"></i>
+
+                </div>            </div>
+
+                <h5 class="fw-bold mb-3">Take Notes</h5>
+
+                <p class="text-muted">Capture important discussion points, decisions, and action items during meetings. Keep everything documented.</p>        </div>        </div>                        <input type="text" class="form-control" id="searchInput" placeholder="Search meetings by title...">
+
+            </div>
+
+        </div>    </div>
+
+        
+
+        <div class="col-md-4">    <div class="col-md-4">    </div>                    </div>
+
+            <div class="feature-card text-center">
+
+                <div class="feature-icon mb-3">        <div class="card">
+
+                    <i class="bi bi-people"></i>
+
+                </div>            <div class="card-body"></div>                    <div class="col-md-4">
+
+                <h5 class="fw-bold mb-3">Track Attendees</h5>
+
+                <p class="text-muted">Manage participant lists, track attendance status, and keep everyone in the loop with real-time updates.</p>                <h5 class="card-title">👥 Track Attendees</h5>
+
+            </div>
+
+        </div>                <p class="card-text">Manage participant lists and track attendance.</p>                        <input type="date" class="form-control" id="dateFilter">
+
+    </div>
+
+</div>            </div>
+
+
+
+<!-- Stats Section -->        </div><div class="row mt-5">                    </div>
+
+<div class="stats-section">
+
+    <div class="container">    </div>
+
+        <div class="row text-center">
+
+            <div class="col-md-4 mb-4 mb-md-0"></div>    <div class="col-md-4">                    <div class="col-md-2">
+
+                <div class="stat-number">100%</div>
+
+                <p class="text-muted fs-5">Free & Open Source</p>{% endblock %}
+
+            </div>
+
+            <div class="col-md-4 mb-4 mb-md-0">        <div class="card">                        <button class="btn btn-secondary w-100" id="clearFilters">
+
+                <div class="stat-number">∞</div>
+
+                <p class="text-muted fs-5">Unlimited Meetings</p>            <div class="card-body">                            <i class="bi bi-x-circle"></i> Clear
+
+            </div>
+
+            <div class="col-md-4">                <h5 class="card-title">📅 Manage Meetings</h5>                        </button>
+
+                <div class="stat-number">24/7</div>
+
+                <p class="text-muted fs-5">Always Available</p>                <p class="card-text">Create, edit, and organize all your meetings in one place.</p>                    </div>
+
+            </div>
+
+        </div>            </div>                </div>
+
+    </div>
+
+</div>        </div>            </div>
+
+
+
+<!-- How It Works Section -->    </div>        </div>
+
+<div class="container my-5 py-5">
+
+    <div class="text-center mb-5">    <div class="col-md-4">
+
+        <h2 class="display-5 fw-bold mb-3 gradient-text">
+
+            How It Works        <div class="card">        <!-- Meetings List -->
+
+        </h2>
+
+        <p class="lead text-muted">Get started in three simple steps</p>            <div class="card-body">        <div id="meetingsList">
+
+    </div>
+
+                    <h5 class="card-title">📝 Take Notes</h5>            <div class="text-center py-5">
+
+    <div class="row align-items-center">
+
+        <div class="col-md-4 text-center mb-4">                <p class="card-text">Capture important discussion points and action items during meetings.</p>                <div class="spinner-border text-primary" role="status">
+
+            <div class="rounded-circle bg-gradient d-inline-flex align-items-center justify-content-center mb-3" 
+
+                 style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">            </div>                    <span class="visually-hidden">Loading...</span>
+
+                <span class="text-white fs-1 fw-bold">1</span>
+
+            </div>        </div>                </div>
+
+            <h5 class="fw-bold">Create Account</h5>
+
+            <p class="text-muted">Sign up for free in seconds</p>    </div>            </div>
 
         </div>
 
-    </div>            <hr class="my-4">                <i class="bi bi-plus-circle"></i> New Meeting
+            <div class="col-md-4">        </div>
 
-</div>
+        <div class="col-md-4 text-center mb-4">
 
-            {% if user.is_authenticated %}            </button>
+            <div class="rounded-circle bg-gradient d-inline-flex align-items-center justify-content-center mb-3"         <div class="card">    </div>
 
-<div class="row mt-5">
+                 style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
 
-    <div class="col-md-4">                <p>Welcome back, {{ user.username }}!</p>        </div>
-
-        <div class="card">
-
-            <div class="card-body">                <a class="btn btn-primary btn-lg" href="{% url 'dashboard' %}" role="button">Go to Dashboard</a>
-
-                <h5 class="card-title">📅 Manage Meetings</h5>
-
-                <p class="card-text">Create, edit, and organize all your meetings in one place.</p>            {% else %}        <!-- Search and Filter -->
+                <span class="text-white fs-1 fw-bold">2</span>            <div class="card-body"></div>
 
             </div>
 
-        </div>                <p>Please login or register to get started.</p>        <div class="card mb-4">
+            <h5 class="fw-bold">Schedule Meetings</h5>                <h5 class="card-title">👥 Track Attendees</h5>
 
-    </div>
+            <p class="text-muted">Add your meetings and invite attendees</p>
 
-    <div class="col-md-4">                <a class="btn btn-primary btn-lg me-2" href="{% url 'login' %}" role="button">Login</a>            <div class="card-body">
+        </div>                <p class="card-text">Manage participant lists and track attendance status.</p><!-- Create Meeting Modal -->
 
-        <div class="card">
+        
 
-            <div class="card-body">                <a class="btn btn-success btn-lg" href="{% url 'register' %}" role="button">Register</a>                <div class="row g-3">
+        <div class="col-md-4 text-center mb-4">            </div><div class="modal fade" id="createMeetingModal" tabindex="-1">
 
-                <h5 class="card-title">📝 Take Notes</h5>
+            <div class="rounded-circle bg-gradient d-inline-flex align-items-center justify-content-center mb-3" 
 
-                <p class="card-text">Capture important discussion points and action items.</p>            {% endif %}                    <div class="col-md-6">
+                 style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">        </div>    <div class="modal-dialog">
 
-            </div>
+                <span class="text-white fs-1 fw-bold">3</span>
 
-        </div>        </div>                        <input type="text" class="form-control" id="searchInput" placeholder="Search meetings by title...">
+            </div>    </div>        <div class="modal-content">
 
-    </div>
+            <h5 class="fw-bold">Take Notes & Collaborate</h5>
 
-    <div class="col-md-4">    </div>                    </div>
+            <p class="text-muted">Document everything and stay organized</p></div>            <div class="modal-header">
 
-        <div class="card">
+        </div>
 
-            <div class="card-body"></div>                    <div class="col-md-4">
+    </div>{% endblock %}                <h5 class="modal-title">Create New Meeting</h5>
 
-                <h5 class="card-title">👥 Track Attendees</h5>
-
-                <p class="card-text">Manage participant lists and track attendance.</p>                        <input type="date" class="form-control" id="dateFilter">
+</div>                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 
             </div>
 
-        </div><div class="row mt-5">                    </div>
+<!-- CTA Section -->            <form id="createMeetingForm">
 
-    </div>
+<div class="hero-section" style="min-height: 50vh;">                <div class="modal-body">
 
-</div>    <div class="col-md-4">                    <div class="col-md-2">
+    <div class="container hero-content text-center">                    <div class="mb-3">
 
-{% endblock %}
+        <h2 class="display-4 fw-bold mb-4">Ready to Get Started?</h2>                        <label for="meetingTitle" class="form-label">Title *</label>
 
-        <div class="card">                        <button class="btn btn-secondary w-100" id="clearFilters">
+        <p class="lead mb-4">Join thousands of teams managing their meetings more effectively</p>                        <input type="text" class="form-control" id="meetingTitle" required>
 
-            <div class="card-body">                            <i class="bi bi-x-circle"></i> Clear
+        {% if not user.is_authenticated %}                    </div>
 
-                <h5 class="card-title">📅 Manage Meetings</h5>                        </button>
+            <a href="{% url 'register' %}" class="btn btn-light btn-gradient btn-lg">                    <div class="mb-3">
 
-                <p class="card-text">Create, edit, and organize all your meetings in one place.</p>                    </div>
+                <i class="bi bi-rocket-takeoff me-2"></i>Start Free Today                        <label for="meetingDescription" class="form-label">Description</label>
 
-            </div>                </div>
+            </a>                        <textarea class="form-control" id="meetingDescription" rows="3"></textarea>
 
-        </div>            </div>
+        {% else %}                    </div>
 
-    </div>        </div>
+            <a href="{% url 'meeting_create' %}" class="btn btn-light btn-gradient btn-lg">                    <div class="mb-3">
 
-    <div class="col-md-4">
+                <i class="bi bi-plus-circle me-2"></i>Create Your First Meeting                        <label for="meetingDate" class="form-label">Date & Time *</label>
 
-        <div class="card">        <!-- Meetings List -->
+            </a>                        <input type="datetime-local" class="form-control" id="meetingDate" required>
 
-            <div class="card-body">        <div id="meetingsList">
+        {% endif %}                    </div>
 
-                <h5 class="card-title">📝 Take Notes</h5>            <div class="text-center py-5">
+    </div>                    <div class="mb-3">
 
-                <p class="card-text">Capture important discussion points and action items during meetings.</p>                <div class="spinner-border text-primary" role="status">
+</div>                        <label for="meetingLocation" class="form-label">Location</label>
 
-            </div>                    <span class="visually-hidden">Loading...</span>
-
-        </div>                </div>
-
-    </div>            </div>
-
-    <div class="col-md-4">        </div>
-
-        <div class="card">    </div>
-
-            <div class="card-body"></div>
-
-                <h5 class="card-title">👥 Track Attendees</h5>
-
-                <p class="card-text">Manage participant lists and track attendance status.</p><!-- Create Meeting Modal -->
-
-            </div><div class="modal fade" id="createMeetingModal" tabindex="-1">
-
-        </div>    <div class="modal-dialog">
-
-    </div>        <div class="modal-content">
-
-</div>            <div class="modal-header">
-
-{% endblock %}                <h5 class="modal-title">Create New Meeting</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form id="createMeetingForm">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="meetingTitle" class="form-label">Title *</label>
-                        <input type="text" class="form-control" id="meetingTitle" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="meetingDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="meetingDescription" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="meetingDate" class="form-label">Date & Time *</label>
-                        <input type="datetime-local" class="form-control" id="meetingDate" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="meetingLocation" class="form-label">Location</label>
                         <input type="text" class="form-control" id="meetingLocation">
-                    </div>
+
+{% endblock %}                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
