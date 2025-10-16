@@ -4,9 +4,17 @@ from .models import Meeting, Note, Attendee
 
 class MeetingForm(forms.ModelForm):
     """Form for creating and editing meetings"""
+    visibility = forms.ChoiceField(
+        choices=[
+            (Meeting.VISIBILITY_TEAM, 'Team'),
+            (Meeting.VISIBILITY_PUBLIC, 'Public'),
+        ],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
     class Meta:
         model = Meeting
-        fields = ['title', 'date', 'location', 'description']
+        fields = ['title', 'date', 'location', 'description', 'visibility']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'date': forms.DateTimeInput(

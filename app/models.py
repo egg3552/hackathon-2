@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 
 class Meeting(models.Model):
@@ -20,6 +21,26 @@ class Meeting(models.Model):
         blank=True,
         related_name='edited_meetings'
     )
+    VISIBILITY_PRIVATE = 'private'
+    VISIBILITY_TEAM = 'team'
+    VISIBILITY_PUBLIC = 'public'
+    VISIBILITY_CHOICES = [
+        (VISIBILITY_PRIVATE, 'Private'),
+        (VISIBILITY_TEAM, 'Team'),
+        (VISIBILITY_PUBLIC, 'Public Link'),
+    ]
+    visibility = models.CharField(max_length=20, choices=VISIBILITY_CHOICES, default=VISIBILITY_PRIVATE)
+    public_token = models.CharField(max_length=64, null=True, blank=True, unique=True)
+
+    def ensure_public_token(self):
+        if not self.public_token:
+            self.public_token = uuid.uuid4().hex
+            self.save(update_fields=['public_token'])
+
+    def revoke_public_token(self):
+        # rotate the token to immediately invalidate prior links
+        self.public_token = uuid.uuid4().hex
+        self.save(update_fields=['public_token'])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
