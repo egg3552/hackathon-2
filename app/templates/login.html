@@ -1,214 +1,65 @@
-{% extends 'base.html' %}{% extends 'base.html' %}{% extends "base.html" %}
-
-
+{% extends 'base.html' %}
 
 {% block title %}Login - Meeting Notes App{% endblock %}
 
-
-
-{% block content %}{% block title %}Login - Meeting Notes App{% endblock %}{% block title %}Login - Meeting Notes App{% endblock %}
+{% block content %}
 
 <div class="row justify-content-center">
-
-    <div class="col-md-6">
-
-        <div class="card">
-
-            <div class="card-header">{% block content %}{% block content %}
-
-                <h3 class="text-center">Login</h3>
-
-            </div><div class="row justify-content-center"><div class="row justify-content-center">
-
-            <div class="card-body">
-
-                <form method="post">    <div class="col-md-6">    <div class="col-md-6 col-lg-5">
-
-                    {% csrf_token %}
-
-                    <div class="mb-3">        <div class="card">        <!-- Login Card -->
-
-                        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
-
-                        {{ form.username }}            <div class="card-header">        <div class="card shadow-sm mb-4" id="loginCard">
-
-                        {% if form.username.errors %}
-
-                            <div class="text-danger">{{ form.username.errors }}</div>                <h3 class="text-center">Login</h3>            <div class="card-body p-5">
-
-                        {% endif %}
-
-                    </div>            </div>                <h2 class="text-center mb-4">
-
-                    <div class="mb-3">
-
-                        <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>            <div class="card-body">                    <i class="bi bi-box-arrow-in-right"></i> Login
-
-                        {{ form.password }}
-
-                        {% if form.password.errors %}                <form method="post">                </h2>
-
-                            <div class="text-danger">{{ form.password.errors }}</div>
-
-                        {% endif %}                    {% csrf_token %}                <form id="loginForm">
-
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100">Login</button>                    <div class="mb-3">                    <div class="mb-3">
-
-                </form>
-
-                <div class="text-center mt-3">                        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>                        <label for="loginUsername" class="form-label">Username</label>
-
-                    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
-
-                </div>                        {{ form.username }}                        <input type="text" class="form-control" id="loginUsername" required>
-
-            </div>
-
-        </div>                        {% if form.username.errors %}                    </div>
-
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header"><h3 class="text-center">Login</h3></div>
+      <div class="card-body">
+        <form method="post">{% csrf_token %}
+          {{ form.non_field_errors }}
+          <div class="mb-3">
+            <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+            {{ form.username }}
+          </div>
+          <div class="mb-3">
+            <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+            {{ form.password }}
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <div class="text-center mt-3">Don't have an account? <a href="{% url 'register' %}">Register</a></div>
+      </div>
     </div>
-
-</div>                            <div class="text-danger">{{ form.username.errors }}</div>                    <div class="mb-3">
-
-{% endblock %}
-
-                        {% endif %}                        <label for="loginPassword" class="form-label">Password</label>
-
-                    </div>                        <input type="password" class="form-control" id="loginPassword" required>
-
-                    <div class="mb-3">                    </div>
-
-                        <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>                    <button type="submit" class="btn btn-primary w-100">Login</button>
-
-                        {{ form.password }}                </form>
-
-                        {% if form.password.errors %}                <div class="text-center mt-3">
-
-                            <div class="text-danger">{{ form.password.errors }}</div>                    <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
-
-                        {% endif %}                </div>
-
-                    </div>            </div>
-
-                    <button type="submit" class="btn btn-primary w-100">Login</button>        </div>
-
-                </form>
-
-                <div class="text-center mt-3">        <!-- Register Card -->
-
-                    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>        <div class="card shadow-sm" id="registerCard" style="display: none;">
-
-                </div>            <div class="card-body p-5">
-
-            </div>                <h2 class="text-center mb-4">
-
-        </div>                    <i class="bi bi-person-plus"></i> Register
-
-    </div>                </h2>
-
-</div>                <form id="registerForm">
-
-{% endblock %}                    <div class="mb-3">
-                        <label for="registerUsername" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="registerUsername" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="registerEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="registerEmail" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="registerPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="registerPassword" required>
-                    </div>
-                    <button type="submit" class="btn btn-success w-100">Register</button>
-                </form>
-                <div class="text-center mt-3">
-                    <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
+
+{% extends 'base.html' %}
+
+{% block title %}Login - Meeting Notes App{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header"><h3 class="text-center">Login</h3></div>
+      <div class="card-body">
+        <form method="post">{% csrf_token %}
+          {{ form.non_field_errors }}
+          <div class="mb-3">
+            <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+            {{ form.username }}
+          </div>
+          <div class="mb-3">
+            <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+            {{ form.password }}
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <div class="text-center mt-3">Don't have an account? <a href="{% url 'register' %}">Register</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block extra_scripts %}
 <script>
-    // Toggle between login and register forms
-    document.getElementById('showRegister').addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('loginCard').style.display = 'none';
-        document.getElementById('registerCard').style.display = 'block';
-    });
-
-    document.getElementById('showLogin').addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('registerCard').style.display = 'none';
-        document.getElementById('loginCard').style.display = 'block';
-    });
-
-    // Handle login form submission
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const username = document.getElementById('loginUsername').value;
-        const password = document.getElementById('loginPassword').value;
-        
-        try {
-            const response = await fetch('/auth/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password })
-            });
-            
-            const data = await response.json();
-            
-            if (response.ok) {
-                showFlashMessage('Login successful! Redirecting...', 'success');
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 1000);
-            } else {
-                showFlashMessage(data.error || 'Login failed', 'danger');
-            }
-        } catch (error) {
-            showFlashMessage('An error occurred. Please try again.', 'danger');
-        }
-    });
-
-    // Handle register form submission
-    document.getElementById('registerForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const username = document.getElementById('registerUsername').value;
-        const email = document.getElementById('registerEmail').value;
-        const password = document.getElementById('registerPassword').value;
-        
-        try {
-            const response = await fetch('/auth/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, email, password })
-            });
-            
-            const data = await response.json();
-            
-            if (response.ok) {
-                showFlashMessage('Registration successful! Redirecting...', 'success');
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 1000);
-            } else {
-                showFlashMessage(data.error || 'Registration failed', 'danger');
-            }
-        } catch (error) {
-            showFlashMessage('An error occurred. Please try again.', 'danger');
-        }
-    });
+// Minimal scripts for the login page can be added here.
 </script>
 {% endblock %}
