@@ -57,8 +57,16 @@ TEMPLATES = [{
 WSGI_APPLICATION = 'meeting_notes.wsgi.application'
 
 # Database configuration
+# Allow forcing sqlite for tests to avoid needing Postgres locally
+if os.environ.get('FORCE_SQLITE_TESTS') == '1':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 # Following Code Institute best practices for team projects
-if 'DATABASE_URL' in os.environ:
+elif 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
