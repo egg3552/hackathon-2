@@ -25,6 +25,7 @@
                 <p><strong>Location:</strong> {{ meeting.location|default:"Not specified" }}</p>
                 <p><strong>Description:</strong> {{ meeting.description|default:"No description" }}</p>
                 <p><strong>Created by:</strong> {{ meeting.created_by.username }}</p>
+                <p><strong>Visibility:</strong> {{ meeting.get_visibility_display }}</p>
                 {% if meeting.last_edited_by %}
                     <p><strong>Last edited by:</strong> {{ meeting.last_edited_by.username }} on {{ meeting.updated_at|date:"F d, Y H:i" }}</p>
                 {% endif %}

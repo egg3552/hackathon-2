@@ -72,11 +72,21 @@ def meeting_detail(request, pk):
     """View meeting details"""
     meeting = get_object_or_404(Meeting, pk=pk)
 
-    # Permission: allow access if user is the creator or an attendee
-    is_creator = meeting.created_by == request.user
-    is_attendee = meeting.attendees.filter(user=request.user).exists()
-    if not (is_creator or is_attendee):
-        return render(request, 'access_denied.html', status=403)
+    # Permission: allow access based on visibility
+    is_creator = (request.user.is_authenticated and meeting.created_by == request.user)
+    is_attendee = (request.user.is_authenticated and meeting.attendees.filter(user=request.user).exists())
+
+    if meeting.visibility == Meeting.VISIBILITY_PRIVATE:
+        # Private: only owner and attendees
+        if not (is_creator or is_attendee):
+            return render(request, 'access_denied.html', status=403)
+    elif meeting.visibility == Meeting.VISIBILITY_TEAM:
+        # Team: any authenticated user
+        if not request.user.is_authenticated:
+            return render(request, 'access_denied.html', status=403)
+    elif meeting.visibility == Meeting.VISIBILITY_PUBLIC:
+        # Public: everyone may view (no restrictions)
+        pass
 
     notes = meeting.notes.all()
     attendees = meeting.attendees.all()
@@ -110,6 +120,20 @@ def meeting_edit(request, pk):
         'meeting_form.html',
         {'form': form, 'title': 'Edit Meeting'}
     )
+
+
+@login_required
+def meeting_public_toggle(request, pk):
+    """Generate or revoke a public token for a meeting (owner only)"""
+    meeting = get_object_or_404(Meeting, pk=pk, created_by=request.user)
+    action = request.POST.get('action')
+    if action == 'generate':
+        meeting.ensure_public_token()
+        messages.success(request, 'Public link generated.')
+    elif action == 'revoke':
+        meeting.revoke_public_token()
+        messages.success(request, 'Public link revoked.')
+    return redirect('meeting_detail', pk=pk)
 
 
 @login_required

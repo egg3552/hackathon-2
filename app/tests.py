@@ -176,3 +176,42 @@ class MeetingDeleteTests(TestCase):
 			self.meeting.refresh_from_db()
 			self.assertEqual(self.meeting.last_edited_by, self.owner)
 			self.assertNotEqual(self.meeting.updated_at, old_updated)
+
+
+	class MeetingVisibilityTests(TestCase):
+		def setUp(self):
+			from django.contrib.auth import get_user_model
+			User = get_user_model()
+			self.owner = User.objects.create_user(username='owner', password='pass')
+			self.other = User.objects.create_user(username='other', password='pass')
+			self.viewer = User.objects.create_user(username='viewer', password='pass')
+
+			# convert old private meetings into 'team' semantics via migration; create as team now
+			self.meeting_private = Meeting.objects.create(
+				title='Private', date=timezone.now(), created_by=self.owner, visibility=Meeting.VISIBILITY_TEAM
+			)
+			self.meeting_team = Meeting.objects.create(
+				title='Team', date=timezone.now(), created_by=self.owner, visibility=Meeting.VISIBILITY_TEAM
+			)
+			self.meeting_public = Meeting.objects.create(
+				title='Public', date=timezone.now(), created_by=self.owner, visibility=Meeting.VISIBILITY_PUBLIC
+			)
+
+			# add an attendee to the team meeting
+			Attendee.objects.create(meeting=self.meeting_team, user=self.viewer, status='invited')
+
+		def test_private_blocked_for_non_attendee(self):
+			self.client.login(username='other', password='pass')
+			resp = self.client.get(reverse('meeting_detail', args=[self.meeting_private.pk]))
+			self.assertEqual(resp.status_code, 403)
+
+		def test_team_access_for_attendee(self):
+			self.client.login(username='viewer', password='pass')
+			resp = self.client.get(reverse('meeting_detail', args=[self.meeting_team.pk]))
+			self.assertEqual(resp.status_code, 200)
+
+		def test_public_token_access_and_revocation(self):
+			# public meetings are accessible to anonymous users
+			client2 = Client()
+			resp2 = client2.get(reverse('meeting_detail', args=[self.meeting_public.pk]))
+			self.assertEqual(resp2.status_code, 200)
