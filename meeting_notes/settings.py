@@ -2,6 +2,10 @@
 from pathlib import Path
 import dj_database_url
 
+# Import local environment variables if env.py exists
+if os.path.exists('env.py'):
+    import env
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get(
