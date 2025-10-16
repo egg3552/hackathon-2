@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .models import Meeting, Note, Attendee
 from .forms import MeetingForm, NoteForm, AttendeeForm
+from django.db import transaction
 
 
 def index(request):
@@ -97,7 +98,9 @@ def meeting_edit(request, pk):
     if request.method == 'POST':
         form = MeetingForm(request.POST, instance=meeting)
         if form.is_valid():
-            form.save()
+            meeting = form.save(commit=False)
+            meeting.last_edited_by = request.user
+            meeting.save()
             messages.success(request, 'Meeting updated successfully!')
             return redirect('meeting_detail', pk=meeting.pk)
     else:
@@ -114,9 +117,20 @@ def meeting_delete(request, pk):
     """Delete a meeting"""
     meeting = get_object_or_404(Meeting, pk=pk, created_by=request.user)
     if request.method == 'POST':
-        meeting.delete()
-        messages.success(request, 'Meeting deleted successfully!')
-        return redirect('meeting_list')
+        try:
+            # Ensure deletion is atomic; if delete() raises, nothing is committed
+            with transaction.atomic():
+                meeting.delete()
+            messages.success(request, 'Meeting deleted successfully!')
+            return redirect('meeting_list')
+        except Exception as e:
+            # Log or surface a friendly error message and re-render confirmation
+            messages.error(request, f'Failed to delete meeting: {e}')
+            return render(
+                request,
+                'meeting_confirm_delete.html',
+                {'meeting': meeting, 'error': str(e)}
+            )
     return render(
         request,
         'meeting_confirm_delete.html',
