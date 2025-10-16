@@ -76,3 +76,54 @@ class Attendee(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.meeting.title}"
+
+
+class ActionItem(models.Model):
+    """Action item for a meeting"""
+    meeting = models.ForeignKey(
+        Meeting,
+        on_delete=models.CASCADE,
+        related_name='action_items'
+    )
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    assigned_to = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='action_items'
+    )
+    completed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.title} ({'Done' if self.completed else 'Open'})"
+
+
+class Attachment(models.Model):
+    """Attachment linked to a meeting. Using a URL field for simplicity."""
+    meeting = models.ForeignKey(
+        Meeting,
+        on_delete=models.CASCADE,
+        related_name='attachments'
+    )
+    name = models.CharField(max_length=255)
+    file_url = models.URLField(blank=True, null=True)
+    uploaded_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='attachments'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.name

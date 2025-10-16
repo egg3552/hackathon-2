@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Access Denied{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card mt-4">
+      <div class="card-body text-center">
+        <h3 class="text-danger">Access Denied</h3>
+        <p class="lead">You do not have permission to view this meeting.</p>
+        <a href="{% url 'meeting_list' %}" class="btn btn-secondary">Back to Meetings</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

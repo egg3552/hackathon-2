@@ -70,12 +70,23 @@ def meeting_create(request):
 def meeting_detail(request, pk):
     """View meeting details"""
     meeting = get_object_or_404(Meeting, pk=pk)
+
+    # Permission: allow access if user is the creator or an attendee
+    is_creator = meeting.created_by == request.user
+    is_attendee = meeting.attendees.filter(user=request.user).exists()
+    if not (is_creator or is_attendee):
+        return render(request, 'access_denied.html', status=403)
+
     notes = meeting.notes.all()
     attendees = meeting.attendees.all()
+    action_items = meeting.action_items.all()
+    attachments = meeting.attachments.all()
     return render(request, 'meeting_detail.html', {
         'meeting': meeting,
         'notes': notes,
-        'attendees': attendees
+        'attendees': attendees,
+        'action_items': action_items,
+        'attachments': attachments,
     })
 
 
