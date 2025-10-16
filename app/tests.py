@@ -48,3 +48,53 @@ class MeetingDetailTests(TestCase):
 		self.client.login(username='other', password='pass')
 		resp = self.client.get(reverse('meeting_detail', args=[self.meeting.pk]))
 		self.assertEqual(resp.status_code, 403)
+
+class AttendeeUpdateStatusTests(TestCase):
+	def setUp(self):
+		from django.contrib.auth import get_user_model
+		User = get_user_model()
+		# Users
+		self.owner = User.objects.create_user(username='owner', password='pass')
+		self.attendee_user = User.objects.create_user(username='attendee', password='pass')
+		self.other = User.objects.create_user(username='other', password='pass')
+
+		# Meeting
+		self.meeting = Meeting.objects.create(
+			title='Auth Meeting',
+			date=timezone.now(),
+			description='For auth tests',
+			created_by=self.owner,
+		)
+
+		# Attendee record
+		self.attendee = Attendee.objects.create(
+			meeting=self.meeting,
+			user=self.attendee_user,
+			status='invited'
+		)
+
+	def test_attendee_can_update_own_status(self):
+		self.client.login(username='attendee', password='pass')
+		url = reverse('attendee_update_status', args=[self.attendee.pk])
+		resp = self.client.post(url, {'status': 'accepted'})
+		# Redirect back to meeting detail on success
+		self.assertEqual(resp.status_code, 302)
+		self.attendee.refresh_from_db()
+		self.assertEqual(self.attendee.status, 'accepted')
+
+	def test_owner_can_update_attendee_status(self):
+		self.client.login(username='owner', password='pass')
+		url = reverse('attendee_update_status', args=[self.attendee.pk])
+		resp = self.client.post(url, {'status': 'accepted'})
+		self.assertEqual(resp.status_code, 302)
+		self.attendee.refresh_from_db()
+		self.assertEqual(self.attendee.status, 'accepted')
+
+	def test_other_user_cannot_update_status(self):
+		self.client.login(username='other', password='pass')
+		url = reverse('attendee_update_status', args=[self.attendee.pk])
+		resp = self.client.post(url, {'status': 'accepted'})
+		# Forbidden response expected
+		self.assertEqual(resp.status_code, 403)
+		self.attendee.refresh_from_db()
+		self.assertEqual(self.attendee.status, 'invited')

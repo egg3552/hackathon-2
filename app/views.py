@@ -223,6 +223,14 @@ def attendee_update_status(request, pk):
     """Update attendee status"""
     attendee = get_object_or_404(Attendee, pk=pk)
     if request.method == 'POST':
+        # Authorization: only the attendee themself, the meeting creator, or staff may update
+        user = request.user
+        meeting = attendee.meeting
+        if not (user == attendee.user or user == meeting.created_by or user.is_staff):
+            # Forbidden
+            from django.http import HttpResponseForbidden
+            return HttpResponseForbidden('You do not have permission to update this attendee status')
+
         status = request.POST.get('status')
         if status in ['invited', 'accepted', 'declined', 'tentative']:
             attendee.status = status

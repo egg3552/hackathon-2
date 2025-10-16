@@ -135,8 +135,28 @@
                     <ul class="list-group list-group-flush">
                         {% for attendee in attendees %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>{{ attendee.user.username }}</span>
-                                <span class="badge bg-info">{{ attendee.get_status_display }}</span>
+                                <div>
+                                    <span>{{ attendee.user.username }}</span>
+                                    <small class="text-muted d-block">{{ attendee.get_status_display }}</small>
+                                </div>
+                                <div>
+                                    {% if attendee.user == user %}
+                                        {% if attendee.status != 'accepted' %}
+                                            <form method="post" action="{% url 'attendee_update_status' attendee.pk %}" class="d-inline">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="status" value="accepted">
+                                                <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                                            </form>
+                                        {% endif %}
+                                        {% if attendee.status != 'declined' %}
+                                            <form method="post" action="{% url 'attendee_update_status' attendee.pk %}" class="d-inline">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="status" value="declined">
+                                                <button type="submit" class="btn btn-sm btn-danger">Decline</button>
+                                            </form>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
                             </li>
                         {% endfor %}
                     </ul>
