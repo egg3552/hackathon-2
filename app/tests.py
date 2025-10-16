@@ -215,3 +215,54 @@ class MeetingDeleteTests(TestCase):
 			client2 = Client()
 			resp2 = client2.get(reverse('meeting_detail', args=[self.meeting_public.pk]))
 			self.assertEqual(resp2.status_code, 200)
+
+
+	class CommentTests(TestCase):
+		def setUp(self):
+			from django.contrib.auth import get_user_model
+			User = get_user_model()
+			self.owner = User.objects.create_user(username='owner', password='pass')
+			self.user = User.objects.create_user(username='user', password='pass')
+			self.other = User.objects.create_user(username='other', password='pass')
+
+			self.meeting = Meeting.objects.create(title='C Meeting', date=timezone.now(), created_by=self.owner, visibility=Meeting.VISIBILITY_TEAM)
+			self.note = Note.objects.create(meeting=self.meeting, content='Note 1', created_by=self.owner)
+
+		def test_authenticated_can_comment_when_have_access(self):
+			self.client.login(username='user', password='pass')
+			resp = self.client.post(reverse('comment_create', args=[self.note.pk]), {'content': 'Hello'})
+			self.assertEqual(resp.status_code, 302)
+			self.assertEqual(self.note.comments.count(), 1)
+
+		def test_comments_ordered_chronologically(self):
+			self.client.login(username='user', password='pass')
+			self.client.post(reverse('comment_create', args=[self.note.pk]), {'content': 'First'})
+			self.client.post(reverse('comment_create', args=[self.note.pk]), {'content': 'Second'})
+			comments = list(self.note.comments.all())
+			self.assertEqual(comments[0].content, 'First')
+			self.assertEqual(comments[1].content, 'Second')
+
+		def test_author_can_edit_and_delete_comment(self):
+			self.client.login(username='user', password='pass')
+			self.client.post(reverse('comment_create', args=[self.note.pk]), {'content': 'Editable'})
+			comment = self.note.comments.first()
+			# edit
+			resp = self.client.post(reverse('comment_edit', args=[comment.pk]), {'content': 'Edited'})
+			self.assertEqual(resp.status_code, 302)
+			comment.refresh_from_db()
+			self.assertEqual(comment.content, 'Edited')
+			# delete
+			resp = self.client.post(reverse('comment_delete', args=[comment.pk]))
+			self.assertEqual(resp.status_code, 302)
+			self.assertEqual(self.note.comments.count(), 0)
+
+		def test_non_author_cannot_edit_or_delete(self):
+			self.client.login(username='user', password='pass')
+			self.client.post(reverse('comment_create', args=[self.note.pk]), {'content': 'Protected'})
+			comment = self.note.comments.first()
+			self.client.logout()
+			self.client.login(username='other', password='pass')
+			resp = self.client.get(reverse('comment_edit', args=[comment.pk]))
+			self.assertEqual(resp.status_code, 403)
+			resp = self.client.post(reverse('comment_delete', args=[comment.pk]))
+			self.assertEqual(resp.status_code, 403)

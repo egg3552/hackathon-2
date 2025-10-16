@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .models import Meeting, Note, Attendee
 from .forms import MeetingForm, NoteForm, AttendeeForm
+from .forms import CommentForm
+from .models import Comment
 from django.db import transaction
 
 
@@ -182,6 +184,61 @@ def note_create(request, meeting_id):
         'note_form.html',
         {'form': form, 'meeting': meeting}
     )
+
+
+@login_required
+def comment_create(request, note_id):
+    """Create a comment for a note (user must have access to the meeting)"""
+    note = get_object_or_404(Note, pk=note_id)
+    meeting = note.meeting
+
+    # Check access using same rules as meeting_detail
+    if meeting.visibility == Meeting.VISIBILITY_PRIVATE:
+        if not (meeting.created_by == request.user or meeting.attendees.filter(user=request.user).exists()):
+            return render(request, 'access_denied.html', status=403)
+    elif meeting.visibility == Meeting.VISIBILITY_TEAM:
+        if not request.user.is_authenticated:
+            return render(request, 'access_denied.html', status=403)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.note = note
+            comment.created_by = request.user
+            comment.save()
+            messages.success(request, 'Comment posted.')
+            return redirect('meeting_detail', pk=meeting.pk)
+    return redirect('meeting_detail', pk=meeting.pk)
+
+
+@login_required
+def comment_edit(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.user != comment.created_by:
+        return render(request, 'access_denied.html', status=403)
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Comment updated.')
+            return redirect('meeting_detail', pk=comment.note.meeting.pk)
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'comment_form.html', {'form': form, 'comment': comment})
+
+
+@login_required
+def comment_delete(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.user != comment.created_by:
+        return render(request, 'access_denied.html', status=403)
+    meeting_pk = comment.note.meeting.pk
+    if request.method == 'POST':
+        comment.delete()
+        messages.success(request, 'Comment deleted.')
+        return redirect('meeting_detail', pk=meeting_pk)
+    return render(request, 'comment_confirm_delete.html', {'comment': comment})
 
 
 @login_required

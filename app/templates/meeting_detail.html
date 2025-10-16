@@ -45,6 +45,37 @@
                             <div class="card-body">
                                 <p>{{ note.content }}</p>
                                 <small class="text-muted">By {{ note.created_by.username }} on {{ note.created_at|date:"F d, Y H:i" }}</small>
+                                <hr>
+                                <!-- Comments -->
+                                <div>
+                                    {% for comment in note.comments.all %}
+                                        <div class="mb-2">
+                                            <p>{{ comment.content }}</p>
+                                            <small class="text-muted">By {{ comment.created_by.username }} on {{ comment.created_at|date:"F d, Y H:i" }}</small>
+                                            {% if comment.created_by == user %}
+                                                <div>
+                                                    <a href="{% url 'comment_edit' comment.pk %}" class="btn btn-sm btn-link">Edit</a>
+                                                    <a href="{% url 'comment_delete' comment.pk %}" class="btn btn-sm btn-link text-danger">Delete</a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% empty %}
+                                        <p class="text-muted">No comments.</p>
+                                    {% endfor %}
+                                </div>
+
+                                <!-- Add comment form -->
+                                {% if user.is_authenticated %}
+                                    <form method="post" action="{% url 'comment_create' note.pk %}">
+                                        {% csrf_token %}
+                                        <div class="mb-2">
+                                            <textarea name="content" class="form-control" rows="3" placeholder="Add a comment..."></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-sm btn-primary">Post Comment</button>
+                                    </form>
+                                {% else %}
+                                    <p class="text-muted">Log in to post comments.</p>
+                                {% endif %}
                                 <div class="mt-2">
                                     {% if note.created_by == user %}
                                         <a href="{% url 'note_edit' note.pk %}" class="btn btn-sm btn-warning">Edit</a>
