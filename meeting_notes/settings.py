@@ -4,7 +4,7 @@ import dj_database_url
 
 # Import local environment variables if env.py exists
 if os.path.exists('env.py'):
-    import env
+    import env  # noqa: F401 - imported for side effects
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
