@@ -1,5 +1,5 @@
 from django import forms
-from .models import Meeting, Note, Attendee
+from .models import Meeting, Note, Attendee, Comment
 
 
 class MeetingForm(forms.ModelForm):
@@ -47,4 +47,13 @@ class AttendeeForm(forms.ModelForm):
         widgets = {
             'user': forms.Select(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }

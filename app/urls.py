@@ -32,6 +32,9 @@ urlpatterns = [
     ),
     path('notes/<int:pk>/edit/', views.note_edit, name='note_edit'),
     path('notes/<int:pk>/delete/', views.note_delete, name='note_delete'),
+    path('notes/<int:note_id>/comments/add/', views.comment_create, name='comment_create'),
+    path('comments/<int:pk>/edit/', views.comment_edit, name='comment_edit'),
+    path('comments/<int:pk>/delete/', views.comment_delete, name='comment_delete'),
     path(
         'meetings/<int:meeting_id>/attendees/add/',
         views.attendee_add,
