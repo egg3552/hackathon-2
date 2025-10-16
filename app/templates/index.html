@@ -1,64 +1,261 @@
-{% extends 'base.html' %}
+﻿{% extends "base.html" %}
 
 {% block title %}Home - Meeting Notes App{% endblock %}
 
 {% block content %}
-
-<div class="row">
-    <div class="col-md-12">
-        <div class="jumbotron text-center py-5">
-            <h1 class="display-4">Welcome to Meeting Notes App</h1>
-            <p class="lead">Organize your meetings, track attendees, and manage notes efficiently.</p>
-            <hr class="my-4">
-            {% if user.is_authenticated %}
-                <p>Welcome back, {{ user.username }}!</p>
-                <a class="btn btn-primary btn-lg" href="{% url 'dashboard' %}" role="button">Go to Dashboard</a>
-            {% else %}
-                <p>Please login or register to get started.</p>
-                <a class="btn btn-primary btn-lg me-2" href="{% url 'login' %}" role="button">Login</a>
-                <a class="btn btn-success btn-lg" href="{% url 'register' %}" role="button">Register</a>
-            {% endif %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        animation: gradient 15s ease infinite;
+    }
+    
+    @keyframes gradient {
+        0% { opacity: 0.5; }
+        50% { opacity: 1; }
+        100% { opacity: 0.5; }
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .feature-card {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border: none;
+        border-radius: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        padding: 2rem;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .btn-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        color: white;
+    }
+    
+    .btn-gradient:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        color: white;
+    }
+    
+    .btn-outline-gradient {
+        border: 2px solid white;
+        background: transparent;
+        color: white;
+        padding: 15px 40px;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-gradient:hover {
+        background: white;
+        color: #667eea;
+        transform: translateY(-3px);
+    }
+    
+    .stats-section {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: 80px 0;
+    }
+    
+    .stat-number {
+        font-size: 3rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+</style>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container hero-content">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-3 fw-bold mb-4">Streamline Your Meetings</h1>
+                <p class="lead mb-5">Organize, track, and manage all your meeting notes in one beautiful platform. Collaborate with your team and never miss important details again.</p>
+                <div class="d-flex gap-3">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="btn btn-gradient">Go to Dashboard</a>
+                    {% else %}
+                        <a href="{% url 'register' %}" class="btn btn-gradient">Get Started Free</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-gradient">Sign In</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- Modal placeholders (keep markup but not nested template tags) -->
-<div class="modal fade" id="createMeetingModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Create New Meeting</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <form id="createMeetingForm">
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="meetingTitle" class="form-label">Title *</label>
-            <input type="text" class="form-control" id="meetingTitle" required>
-          </div>
-          <div class="mb-3">
-            <label for="meetingDescription" class="form-label">Description</label>
-            <textarea class="form-control" id="meetingDescription" rows="3"></textarea>
-          </div>
+<!-- Features Section -->
+<section class="py-5" style="background: white;">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold gradient-text mb-3">Everything You Need</h2>
+            <p class="lead text-muted">Powerful features to manage your meetings effectively</p>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-primary">Create Meeting</button>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon mb-3"></div>
+                    <h4 class="fw-bold mb-3">Smart Note Taking</h4>
+                    <p class="text-muted">Create detailed notes during meetings with rich text formatting and easy organization.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon mb-3"></div>
+                    <h4 class="fw-bold mb-3">Attendee Management</h4>
+                    <p class="text-muted">Track who attended each meeting and manage participant details effortlessly.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon mb-3"></div>
+                    <h4 class="fw-bold mb-3">Organized Dashboard</h4>
+                    <p class="text-muted">View all your meetings at a glance with an intuitive, easy-to-navigate interface.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon mb-3"></div>
+                    <h4 class="fw-bold mb-3">Quick Search</h4>
+                    <p class="text-muted">Find any meeting or note instantly with powerful search capabilities.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon mb-3"></div>
+                    <h4 class="fw-bold mb-3">Secure Access</h4>
+                    <p class="text-muted">Your data is protected with industry-standard security and user authentication.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon mb-3"></div>
+                    <h4 class="fw-bold mb-3">Responsive Design</h4>
+                    <p class="text-muted">Access your meeting notes anywhere, on any device - desktop, tablet, or mobile.</p>
+                </div>
+            </div>
         </div>
-      </form>
     </div>
-  </div>
-</div>
+</section>
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="stat-number">1000+</div>
+                <p class="lead text-muted">Active Users</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="stat-number">5000+</div>
+                <p class="lead text-muted">Meetings Organized</p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="stat-number">15000+</div>
+                <p class="lead text-muted">Notes Created</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-{% endblock %}
+<!-- How It Works Section -->
+<section class="py-5" style="background: white;">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold gradient-text mb-3">How It Works</h2>
+            <p class="lead text-muted">Get started in three simple steps</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 fw-bold gradient-text mb-3">1</div>
+                    <h4 class="fw-bold mb-3">Create an Account</h4>
+                    <p class="text-muted">Sign up for free in seconds. No credit card required.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 fw-bold gradient-text mb-3">2</div>
+                    <h4 class="fw-bold mb-3">Create Your Meeting</h4>
+                    <p class="text-muted">Set up your meeting details and add attendees.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="text-center">
+                    <div class="display-4 fw-bold gradient-text mb-3">3</div>
+                    <h4 class="fw-bold mb-3">Take Notes & Collaborate</h4>
+                    <p class="text-muted">Start taking notes and keep everyone on the same page.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-{% block extra_scripts %}
-<script>
-// Minimal client JS to avoid template parsing issues; original app JS retained where needed.
-document.addEventListener('DOMContentLoaded', () => {
-  // safe: only query elements that exist
-  const searchInput = document.getElementById('searchInput');
-  if (searchInput) searchInput.addEventListener('input', () => {});
-});
-</script>
+<!-- CTA Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container py-5 text-center text-white">
+        <h2 class="display-4 fw-bold mb-4">Ready to Get Started?</h2>
+        <p class="lead mb-5">Join thousands of teams already using Meeting Notes App</p>
+        {% if not user.is_authenticated %}
+            <a href="{% url 'register' %}" class="btn btn-light btn-lg px-5 py-3" style="border-radius: 50px;">Sign Up Now</a>
+        {% endif %}
+    </div>
+</section>
+
 {% endblock %}
