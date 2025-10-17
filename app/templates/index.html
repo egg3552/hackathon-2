@@ -2,16 +2,40 @@
 
 {% block title %}Home - Meeting Notes App{% endblock %}
 
+{% block messages %}
+<!-- Override messages block to show them inside hero if needed -->
+{% endblock %}
+
 {% block content %}
 <style>
+    /* CRITICAL: Remove all whitespace above navbar */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    
+    /* Ensure navbar starts at absolute top */
+    nav.navbar {
+        margin: 0 !important;
+        margin-top: 0 !important;
+        padding-top: 0.5rem !important;
+        position: relative;
+        top: 0;
+    }
+    
     .hero-section {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 90vh;
+        min-height: 65vh;
         display: flex;
         align-items: center;
         color: white;
         position: relative;
         overflow: hidden;
+        padding-top: 60px;
+        padding-bottom: 60px;
+        margin-top: 0 !important;
     }
     
     .hero-section::before {
@@ -42,7 +66,11 @@
         border-radius: 15px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         height: 100%;
+        min-height: 250px;
         padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     
     .feature-card:hover {
@@ -51,11 +79,8 @@
     }
     
     .feature-icon {
-        font-size: 3rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-size: 3.5rem;
+        line-height: 1;
     }
     
     .btn-gradient {
@@ -93,16 +118,14 @@
     
     .stats-section {
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        padding: 80px 0;
+        padding: 60px 0;
     }
     
     .stat-number {
-        font-size: 3rem;
+        font-size: 3.5rem;
         font-weight: bold;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        line-height: 1;
+        margin-bottom: 0.5rem;
     }
     
     .gradient-text {
@@ -115,11 +138,11 @@
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container hero-content">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h1 class="display-3 fw-bold mb-4">Streamline Your Meetings</h1>
-                <p class="lead mb-5">Organize, track, and manage all your meeting notes in one beautiful platform. Collaborate with your team and never miss important details again.</p>
-                <div class="d-flex gap-3">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-2 fw-bold mb-4">Streamline Your Meetings</h1>
+                <p class="lead mb-5 fs-4">Organize, track, and manage all your meeting notes in one beautiful platform. Collaborate with your team and never miss important details again.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
                     {% if user.is_authenticated %}
                         <a href="{% url 'dashboard' %}" class="btn btn-gradient">Go to Dashboard</a>
                     {% else %}
@@ -133,7 +156,7 @@
 </section>
 
 <!-- Features Section -->
-<section class="py-5" style="background: white;">
+<section class="py-5 mt-0" style="background: white;">
     <div class="container py-5">
         <div class="text-center mb-5">
             <h2 class="display-5 fw-bold gradient-text mb-3">Everything You Need</h2>
@@ -141,51 +164,51 @@
         </div>
         
         <div class="row g-4">
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="feature-card text-center">
-                    <div class="feature-icon mb-3"></div>
+                    <div class="feature-icon mb-3">📝</div>
                     <h4 class="fw-bold mb-3">Smart Note Taking</h4>
-                    <p class="text-muted">Create detailed notes during meetings with rich text formatting and easy organization.</p>
+                    <p class="text-muted mb-0">Create detailed notes during meetings with rich text formatting and easy organization.</p>
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="feature-card text-center">
-                    <div class="feature-icon mb-3"></div>
+                    <div class="feature-icon mb-3">👥</div>
                     <h4 class="fw-bold mb-3">Attendee Management</h4>
-                    <p class="text-muted">Track who attended each meeting and manage participant details effortlessly.</p>
+                    <p class="text-muted mb-0">Track who attended each meeting and manage participant details effortlessly.</p>
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="feature-card text-center">
-                    <div class="feature-icon mb-3"></div>
+                    <div class="feature-icon mb-3">📊</div>
                     <h4 class="fw-bold mb-3">Organized Dashboard</h4>
-                    <p class="text-muted">View all your meetings at a glance with an intuitive, easy-to-navigate interface.</p>
+                    <p class="text-muted mb-0">View all your meetings at a glance with an intuitive, easy-to-navigate interface.</p>
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="feature-card text-center">
-                    <div class="feature-icon mb-3"></div>
-                    <h4 class="fw-bold mb-3">Quick Search</h4>
-                    <p class="text-muted">Find any meeting or note instantly with powerful search capabilities.</p>
+                    <div class="feature-icon mb-3">✅</div>
+                    <h4 class="fw-bold mb-3">Action Items</h4>
+                    <p class="text-muted mb-0">Track tasks and to-dos with assignment and completion status for accountability.</p>
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="feature-card text-center">
-                    <div class="feature-icon mb-3"></div>
-                    <h4 class="fw-bold mb-3">Secure Access</h4>
-                    <p class="text-muted">Your data is protected with industry-standard security and user authentication.</p>
+                    <div class="feature-icon mb-3">🔗</div>
+                    <h4 class="fw-bold mb-3">Public Sharing</h4>
+                    <p class="text-muted mb-0">Generate secure public links to share meeting notes with external stakeholders.</p>
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4 mb-4">
                 <div class="feature-card text-center">
-                    <div class="feature-icon mb-3"></div>
-                    <h4 class="fw-bold mb-3">Responsive Design</h4>
-                    <p class="text-muted">Access your meeting notes anywhere, on any device - desktop, tablet, or mobile.</p>
+                    <div class="feature-icon mb-3">💬</div>
+                    <h4 class="fw-bold mb-3">Comments & Collaboration</h4>
+                    <p class="text-muted mb-0">Add threaded comments to notes for better team communication and feedback.</p>
                 </div>
             </div>
         </div>
@@ -193,19 +216,27 @@
 </section>
 <!-- Stats Section -->
 <section class="stats-section">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-md-4 mb-4">
-                <div class="stat-number">1000+</div>
-                <p class="lead text-muted">Active Users</p>
+    <div class="container py-4">
+        <div class="row text-center g-4">
+            <div class="col-md-3">
+                <div class="stat-number">📋</div>
+                <p class="lead text-muted mb-1">Meetings</p>
+                <p class="text-muted small">Organize & Track</p>
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="stat-number">5000+</div>
-                <p class="lead text-muted">Meetings Organized</p>
+            <div class="col-md-3">
+                <div class="stat-number">✅</div>
+                <p class="lead text-muted mb-1">Action Items</p>
+                <p class="text-muted small">Never Miss a Task</p>
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="stat-number">15000+</div>
-                <p class="lead text-muted">Notes Created</p>
+            <div class="col-md-3">
+                <div class="stat-number">💬</div>
+                <p class="lead text-muted mb-1">Collaborate</p>
+                <p class="text-muted small">Team Comments</p>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-number">🔗</div>
+                <p class="lead text-muted mb-1">Share</p>
+                <p class="text-muted small">Public Links</p>
             </div>
         </div>
     </div>

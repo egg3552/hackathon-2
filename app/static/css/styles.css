@@ -1,11 +1,29 @@
-﻿body {
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 main {
     flex: 1;
+}
+
+/* Remove default Bootstrap container padding for landing page */
+.hero-full-width {
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
 .card {
